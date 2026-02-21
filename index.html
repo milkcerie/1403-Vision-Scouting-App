@@ -26,6 +26,9 @@
   --input-bg: #0d1f17;
   --header-bg: #0a1a10;
 }
+.stepper-val::-webkit-inner-spin-button,
+.stepper-val::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.stepper-val { -moz-appearance: textfield; }
 [data-theme="light"] {
   --bg: #f1f8f4;
   --bg2: #ffffff;
@@ -155,28 +158,26 @@ select option { background: var(--bg2); }
       <input type="text" id="f_name" placeholder="Your name">
     </div>
 
-    <div class="row2">
-      <div class="field">
-        <div class="field-label-row">
-          <label>Match Number <span class="req">*</span></label>
-          <button class="info-btn" onclick="showInfo('Match Number','The current match number being scouted. Use + / − to increment. Minimum value: 0. Resets after submission.')">i</button>
-        </div>
-        <div class="stepper">
-          <button class="stepper-btn" onclick="step('f_match',-1)">−</button>
-          <input class="stepper-val" type="number" id="f_match" value="0" min="0" onchange="clamp('f_match',0)">
-          <button class="stepper-btn" onclick="step('f_match',1)">+</button>
-        </div>
+    <div class="field">
+      <div class="field-label-row">
+        <label>Match Number <span class="req">*</span></label>
+        <button class="info-btn" onclick="showInfo('Match Number','The current match number being scouted. Use + / − to increment. Minimum value: 0. Resets after submission.')">i</button>
       </div>
-      <div class="field">
-        <div class="field-label-row">
-          <label>Team Number <span class="req">*</span></label>
-          <button class="info-btn" onclick="showInfo('Team Number','The FRC team number of the robot being scouted. Minimum value: 0. Resets after submission.')">i</button>
-        </div>
-        <div class="stepper">
-          <button class="stepper-btn" onclick="step('f_team',-1)">−</button>
-          <input class="stepper-val" type="number" id="f_team" value="0" min="0" onchange="clamp('f_team',0)">
-          <button class="stepper-btn" onclick="step('f_team',1)">+</button>
-        </div>
+      <div class="stepper">
+        <button class="stepper-btn" onclick="step('f_match',-1)">−</button>
+        <input class="stepper-val" type="number" id="f_match" value="0" min="0" onchange="clamp('f_match',0)">
+        <button class="stepper-btn" onclick="step('f_match',1)">+</button>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label-row">
+        <label>Team Number <span class="req">*</span></label>
+        <button class="info-btn" onclick="showInfo('Team Number','The FRC team number of the robot being scouted. Minimum value: 0. Resets after submission.')">i</button>
+      </div>
+      <div class="stepper">
+        <button class="stepper-btn" onclick="step('f_team',-1)">−</button>
+        <input class="stepper-val" type="number" id="f_team" value="0" min="0" onchange="clamp('f_team',0)">
+        <button class="stepper-btn" onclick="step('f_team',1)">+</button>
       </div>
     </div>
 
