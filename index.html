@@ -1,1145 +1,569 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1403 Vision Scouting App</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-green: #1a5f3a;
-            --light-green: #2d8659;
-            --bg-light: #f5f5f5;
-            --bg-dark: #1a1a1a;
-            --text-light: #333;
-            --text-dark: #e0e0e0;
-            --border-light: #ccc;
-            --border-dark: #444;
-            --white: #ffffff;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        body.dark-mode {
-            background-color: var(--bg-dark);
-            color: var(--text-dark);
-        }
-
-        .header {
-            background-color: var(--primary-green);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .theme-toggle {
-            background-color: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background-color: rgba(255,255,255,0.3);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        @media (min-width: 1024px) {
-            .form-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .section {
-            background-color: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        body.dark-mode .section {
-            background-color: #2a2a2a;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        .section h2 {
-            color: var(--primary-green);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary-green);
-        }
-
-        body.dark-mode .section h2 {
-            color: var(--light-green);
-            border-bottom-color: var(--light-green);
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .required::after {
-            content: "*";
-            color: #d32f2f;
-            margin-left: 0.2rem;
-        }
-
-        .info-btn {
-            background-color: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .info-btn:hover {
-            background-color: var(--light-green);
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 0.6rem;
-            border: 1px solid var(--border-light);
-            border-radius: 4px;
-            font-size: 0.95rem;
-            background-color: var(--white);
-            color: var(--text-light);
-        }
-
-        body.dark-mode input[type="text"],
-        body.dark-mode input[type="number"],
-        body.dark-mode select,
-        body.dark-mode textarea {
-            background-color: #333;
-            color: var(--text-dark);
-            border-color: var(--border-dark);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        .number-input-wrapper {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .number-input-wrapper input {
-            flex: 1;
-            text-align: center;
-        }
-
-        .increment-btn {
-            background-color: var(--primary-green);
-            color: white;
-            border: none;
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            min-width: 40px;
-            transition: background-color 0.3s;
-        }
-
-        .increment-btn:hover {
-            background-color: var(--light-green);
-        }
-
-        .increment-btn:active {
-            transform: scale(0.95);
-        }
-
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .timer-section {
-            background-color: #f0f7f4;
-            padding: 1rem;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        body.dark-mode .timer-section {
-            background-color: #1f3a2f;
-        }
-
-        .timer-display {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-green);
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-        }
-
-        body.dark-mode .timer-display {
-            color: var(--light-green);
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .timer-btn {
-            background-color: var(--primary-green);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.3s;
-        }
-
-        .timer-btn:hover {
-            background-color: var(--light-green);
-        }
-
-        .timer-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            min-width: 150px;
-        }
-
-        .btn-reset {
-            background-color: #757575;
-            color: white;
-        }
-
-        .btn-reset:hover {
-            background-color: #616161;
-        }
-
-        .btn-submit {
-            background-color: var(--primary-green);
-            color: white;
-        }
-
-        .btn-submit:hover:not(:disabled) {
-            background-color: var(--light-green);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 95, 58, 0.3);
-        }
-
-        .btn-submit:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-
-        body.dark-mode .modal-content {
-            background-color: #2a2a2a;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .modal-header h3 {
-            color: var(--primary-green);
-        }
-
-        body.dark-mode .modal-header h3 {
-            color: var(--light-green);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            color: #333;
-        }
-
-        body.dark-mode .close-btn {
-            color: #aaa;
-        }
-
-        body.dark-mode .close-btn:hover {
-            color: #fff;
-        }
-
-        .qr-code-container {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        #qrcode {
-            display: inline-block;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-        }
-
-        .collapsed {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .header h1 {
-                font-size: 1.2rem;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 0.5rem;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.85rem;
-            font-weight: normal;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1403 Vision Scouting App</title>
+<style>
+:root {
+  --green: #2d6a4f;
+  --green-light: #40916c;
+  --green-dark: #1b4332;
+  --green-faint: #d8f3dc;
+  --white: #ffffff;
+  --danger: #c0392b;
+}
+[data-theme="dark"] {
+  --bg: #0d1f17;
+  --bg2: #152a1e;
+  --bg3: #1e3a2a;
+  --border: #2d6a4f;
+  --text: #e8f5e9;
+  --text2: #a5d6a7;
+  --text3: #66bb6a;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  --toggle-bg: #1b4332;
+  --input-bg: #0d1f17;
+  --header-bg: #0a1a10;
+}
+[data-theme="light"] {
+  --bg: #f1f8f4;
+  --bg2: #ffffff;
+  --bg3: #d8f3dc;
+  --border: #40916c;
+  --text: #1b4332;
+  --text2: #2d6a4f;
+  --text3: #40916c;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --toggle-bg: #b7e4c7;
+  --input-bg: #f9fdf9;
+  --header-bg: #1b4332;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.2s, color 0.2s; }
+
+/* HEADER */
+header { background: var(--header-bg); color: #fff; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--green-light); position: sticky; top: 0; z-index: 100; }
+header h1 { font-size: 1.3rem; font-weight: 800; letter-spacing: 0.02em; }
+header h1 span { color: #74c69d; }
+.theme-btn { background: var(--bg3); border: 2px solid var(--green-light); color: var(--text3); border-radius: 8px; padding: 0.4rem 0.85rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.theme-btn:hover { background: var(--green); color: #fff; }
+
+/* LAYOUT */
+.page { max-width: 700px; margin: 0 auto; padding: 1.2rem 1rem 5rem; }
+
+/* SECTION CARD */
+.card { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem 1.25rem 1rem; margin-bottom: 1.1rem; box-shadow: var(--card-shadow); }
+.card-title { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1.5px solid var(--border); }
+
+/* FIELD ROW */
+.field { margin-bottom: 0.9rem; }
+.field:last-child { margin-bottom: 0; }
+.field-label-row { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.35rem; }
+.field-label-row label { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+.req { color: #ff6b6b; font-size: 0.85rem; }
+.info-btn { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--text3); background: transparent; color: var(--text3); font-size: 0.7rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+.info-btn:hover { background: var(--green); color: #fff; border-color: var(--green); }
+
+/* INPUTS */
+input[type="text"], textarea, select {
+  width: 100%; padding: 0.65rem 0.85rem; border: 2px solid var(--border); border-radius: 8px;
+  font-size: 1rem; color: var(--text); background: var(--input-bg); transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+input[type="text"]:focus, textarea:focus, select:focus { outline: none; border-color: var(--green-light); }
+textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+select option { background: var(--bg2); }
+
+/* STEPPER */
+.stepper { display: flex; align-items: center; gap: 0; border: 2px solid var(--border); border-radius: 8px; overflow: hidden; width: 100%; }
+.stepper-btn { background: var(--bg3); border: none; color: var(--text); font-size: 1.4rem; font-weight: 700; width: 52px; height: 50px; cursor: pointer; flex-shrink: 0; transition: background 0.15s; display: flex; align-items: center; justify-content: center; }
+.stepper-btn:hover { background: var(--green); color: #fff; }
+.stepper-btn:active { background: var(--green-dark); }
+.stepper-val { flex: 1; text-align: center; font-size: 1.15rem; font-weight: 700; color: var(--text); background: var(--input-bg); border: none; height: 50px; outline: none; }
+
+/* BOOLEAN TOGGLE */
+.bool-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.bool-row .field-label-row { margin-bottom: 0; flex: 1; }
+.toggle { position: relative; width: 56px; height: 30px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; inset: 0; background: var(--toggle-bg); border: 2px solid var(--border); border-radius: 30px; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+.slider:before { content: ''; position: absolute; width: 22px; height: 22px; left: 2px; top: 2px; background: var(--text2); border-radius: 50%; transition: transform 0.2s, background 0.2s; }
+.toggle input:checked + .slider { background: var(--green); border-color: var(--green-light); }
+.toggle input:checked + .slider:before { transform: translateX(26px); background: #fff; }
+
+/* ROW2 */
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+
+/* TIMER */
+.timer-display { font-size: 2.2rem; font-weight: 800; text-align: center; color: var(--text3); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; margin: 0.5rem 0; }
+.timer-btns { display: flex; gap: 0.6rem; }
+.timer-btn { flex: 1; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.1s; }
+.timer-btn:active { transform: scale(0.97); }
+.btn-start { background: var(--green); color: #fff; }
+.btn-pause { background: #e67e22; color: #fff; }
+.btn-reset-t { background: var(--bg3); color: var(--text); border: 2px solid var(--border); }
+
+/* COLLAPSED SECTION */
+.collapsible { overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; max-height: 9999px; opacity: 1; }
+.collapsible.collapsed { max-height: 0; opacity: 0; pointer-events: none; }
+
+/* TOOLTIP MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; padding: 1.5rem; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--bg2); border: 2px solid var(--green-light); border-radius: 14px; padding: 1.5rem; max-width: 420px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+.modal h3 { color: var(--text3); font-size: 1rem; margin-bottom: 0.6rem; }
+.modal p { color: var(--text); font-size: 0.92rem; line-height: 1.5; }
+.modal-close { margin-top: 1.1rem; width: 100%; padding: 0.7rem; background: var(--green); color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+
+/* GENERATE / RESET BUTTONS */
+.action-btns { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+.gen-btn { padding: 1rem; background: var(--green); color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.03em; }
+.gen-btn:hover { background: var(--green-light); }
+.gen-btn:active { transform: scale(0.98); }
+.rst-btn { padding: 0.8rem; background: transparent; color: var(--text2); border: 2px solid var(--border); border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.rst-btn:hover { border-color: var(--danger); color: var(--danger); }
+
+/* QR OUTPUT */
+#qrOutput { display: none; text-align: center; margin-top: 1.1rem; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+#qrOutput p { font-size: 0.82rem; color: var(--text2); margin-top: 0.75rem; }
+#qrCanvas { border: 4px solid var(--green); border-radius: 10px; }
+
+/* DIED DEPENDENT */
+.dep-fields { background: var(--bg3); border-radius: 8px; padding: 0.85rem; margin-top: 0.75rem; border: 1.5px dashed var(--border); }
+
+@media (max-width: 480px) { .row2 { grid-template-columns: 1fr; } header h1 { font-size: 1.05rem; } }
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>1403 Vision Scouting App</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+<header>
+  <h1><span>1403</span> Vision Scouting App</h1>
+  <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️ Light</button>
+</header>
+
+<div class="page">
+
+  <!-- PREMATCH -->
+  <div class="card">
+    <div class="card-title">⚡ Prematch Information</div>
+
+    <div class="field">
+      <div class="field-label-row">
+        <label>Name <span class="req">*</span></label>
+        <button class="info-btn" onclick="showInfo('Name','The name of the scouter filling out this form. This field is NOT reset between matches.')">i</button>
+      </div>
+      <input type="text" id="f_name" placeholder="Your name">
     </div>
 
-    <div class="container">
-        <form id="scoutingForm">
-            <div class="form-grid">
-                <!-- Prematch Information -->
-                <div class="section">
-                    <h2>Prematch Information</h2>
-                    
-                    <div class="form-group">
-                        <label class="form-label required">
-                            Name
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Name of the scouter</span>
-                            </div>
-                        </label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">
-                            Match Number
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">The current number match that the scouter is scouting</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('matchNumber')">-</button>
-                            <input type="number" id="matchNumber" name="matchNumber" min="0" value="0" required>
-                            <button type="button" class="increment-btn" onclick="incrementValue('matchNumber')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">
-                            Scouting Position
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Position on the field</span>
-                            </div>
-                        </label>
-                        <select id="scoutingPosition" name="scoutingPosition" required>
-                            <option value="Red 1">Red 1</option>
-                            <option value="Red 2">Red 2</option>
-                            <option value="Red 3">Red 3</option>
-                            <option value="Blue 1">Blue 1</option>
-                            <option value="Blue 2">Blue 2</option>
-                            <option value="Blue 3">Blue 3</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">
-                            Team Number
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">The number of the team that the scouter is scouting</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('teamNumber')">-</button>
-                            <input type="number" id="teamNumber" name="teamNumber" min="0" value="0" required>
-                            <button type="button" class="increment-btn" onclick="incrementValue('teamNumber')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">
-                            Showed Up?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Whether the team actually showed up to the field or not</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="showedUp" name="showedUp" checked onchange="toggleFormSections()">
-                            <label for="showedUp">Team showed up</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group collapsible-section">
-                        <label class="form-label required">
-                            Starting Side
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Which side of the field the robot is starting on</span>
-                            </div>
-                        </label>
-                        <select id="startingSide" name="startingSide" required>
-                            <option value="Center">Center</option>
-                            <option value="Depot Side">Depot Side</option>
-                            <option value="Non-Depot Side">Non-Depot Side</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group collapsible-section">
-                        <label class="form-label">Timer Start</label>
-                        <div class="timer-section">
-                            <div class="timer-display" id="timerDisplay">00:00</div>
-                            <div class="timer-controls">
-                                <button type="button" class="timer-btn" id="startBtn" onclick="startTimer()">Start</button>
-                                <button type="button" class="timer-btn" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
-                                <button type="button" class="timer-btn" id="resetTimerBtn" onclick="resetTimer()">Reset</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Autonomous Information -->
-                <div class="section collapsible-section">
-                    <h2>Autonomous Information</h2>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Climbed Tower?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Records whether the team climbed the tower successfully or not</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="climbedTowerAuto" name="climbedTowerAuto">
-                            <label for="climbedTowerAuto">Successfully climbed</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Attempted Climb (Unsuccessful)?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Records whether the team attempted a climb but did not successfully do it</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="attemptedClimbAuto" name="attemptedClimbAuto">
-                            <label for="attemptedClimbAuto">Attempted climb</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Fuel Scored (Auto)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) scored</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('fuelScoredAuto')">-</button>
-                            <input type="number" id="fuelScoredAuto" name="fuelScoredAuto" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('fuelScoredAuto')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Fuel Missed (Auto)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) missed</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('fuelMissedAuto')">-</button>
-                            <input type="number" id="fuelMissedAuto" name="fuelMissedAuto" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('fuelMissedAuto')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Fuel Shot/Fed (Auto)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) fed</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('fuelFedAuto')">-</button>
-                            <input type="number" id="fuelFedAuto" name="fuelFedAuto" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('fuelFedAuto')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Human Player Fuel Scored (Auto)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) the human player scores in autonomous</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('humanPlayerFuelAuto')">-</button>
-                            <input type="number" id="humanPlayerFuelAuto" name="humanPlayerFuelAuto" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('humanPlayerFuelAuto')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Crossed Bump?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of times the robot crosses the bump</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('crossedBump')">-</button>
-                            <input type="number" id="crossedBump" name="crossedBump" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('crossedBump')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Crossed Trench?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of times the robot crosses the trench</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('crossedTrench')">-</button>
-                            <input type="number" id="crossedTrench" name="crossedTrench" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('crossedTrench')">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Teleop Information -->
-                <div class="section collapsible-section">
-                    <h2>Teleop Information</h2>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Fuel Scored (Teleop)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) scored</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('fuelScoredTeleop')">-</button>
-                            <input type="number" id="fuelScoredTeleop" name="fuelScoredTeleop" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('fuelScoredTeleop')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Fuel Fed (Teleop)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) fed</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('fuelFedTeleop')">-</button>
-                            <input type="number" id="fuelFedTeleop" name="fuelFedTeleop" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('fuelFedTeleop')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Human Player Fuel Scored (Teleop)
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Number of fuel (game pieces) the human player scores in teleop</span>
-                            </div>
-                        </label>
-                        <div class="number-input-wrapper">
-                            <button type="button" class="increment-btn" onclick="decrementValue('humanPlayerFuelTeleop')">-</button>
-                            <input type="number" id="humanPlayerFuelTeleop" name="humanPlayerFuelTeleop" min="0" value="0">
-                            <button type="button" class="increment-btn" onclick="incrementValue('humanPlayerFuelTeleop')">+</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Crossed Field/Played Defense?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Did the robot cross the field or play defense</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="crossedFieldDefense" name="crossedFieldDefense">
-                            <label for="crossedFieldDefense">Yes</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Endgame & Postmatch Information -->
-                <div class="section collapsible-section">
-                    <h2>Endgame Information</h2>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Climbed Tower?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Checks whether the team climbed the tower at the end and if they did what happened</span>
-                            </div>
-                        </label>
-                        <select id="climbedTowerEndgame" name="climbedTowerEndgame">
-                            <option value="Didn't Climb">Didn't Climb</option>
-                            <option value="Unsuccessfully Attempted Climb">Unsuccessfully Attempted Climb</option>
-                            <option value="Level 1">Level 1</option>
-                            <option value="Level 2">Level 2</option>
-                            <option value="Level 3">Level 3</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Kept Playing/Scoring Until End?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Checks whether the robot kept playing until the end</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="keptPlaying" name="keptPlaying">
-                            <label for="keptPlaying">Yes</label>
-                        </div>
-                    </div>
-
-                    <h2 style="margin-top: 2rem;">Postmatch Information</h2>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Died?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Did the robot lose battery, stop functioning during match, etc.</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="died" name="died" onchange="toggleDiedFields()">
-                            <label for="died">Robot died</label>
-                        </div>
-                    </div>
-
-                    <div id="diedFields" class="collapsed">
-                        <div class="form-group">
-                            <label class="form-label">
-                                Approx. Time Robot Died?
-                                <div class="tooltip">
-                                    <button type="button" class="info-btn">i</button>
-                                    <span class="tooltiptext">Timestamp when robot died</span>
-                                </div>
-                            </label>
-                            <input type="text" id="timeDied" name="timeDied" readonly>
-                            <button type="button" class="increment-btn" style="width: 100%; margin-top: 0.5rem;" onclick="recordTimestamp('timeDied')">Record Current Time</button>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">
-                                Functioning Again?
-                                <div class="tooltip">
-                                    <button type="button" class="info-btn">i</button>
-                                    <span class="tooltiptext">If the robot started functioning again during the match</span>
-                                </div>
-                            </label>
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="functioningAgain" name="functioningAgain" onchange="toggleFunctioningAgainField()">
-                                <label for="functioningAgain">Started functioning again</label>
-                            </div>
-                        </div>
-
-                        <div id="functioningAgainField" class="collapsed">
-                            <div class="form-group">
-                                <label class="form-label">Time Functioning Again?</label>
-                                <input type="text" id="timeFunctioningAgain" name="timeFunctioningAgain" readonly>
-                                <button type="button" class="increment-btn" style="width: 100%; margin-top: 0.5rem;" onclick="recordTimestamp('timeFunctioningAgain')">Record Current Time</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            Tipped Over?
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Did the robot tip over and stop being able to play during the match?</span>
-                            </div>
-                        </label>
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="tippedOver" name="tippedOver">
-                            <label for="tippedOver">Robot tipped over</label>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label required">
-                            Comments
-                            <div class="tooltip">
-                                <button type="button" class="info-btn">i</button>
-                                <span class="tooltiptext">Comments the scouter has about the robot/match</span>
-                            </div>
-                        </label>
-                        <textarea id="comments" name="comments" maxlength="10000" required></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="action-buttons">
-                <button type="button" class="btn btn-reset" onclick="resetForm()">Reset Form</button>
-                <button type="submit" class="btn btn-submit" id="submitBtn">Submit & Generate QR Code</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- QR Code Modal -->
-    <div id="qrModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>QR Code Generated</h3>
-                <button type="button" class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <p style="text-align: center; margin-bottom: 1rem;">Scan this QR code with your barcode scanner</p>
-            <div class="qr-code-container">
-                <div id="qrcode"></div>
-            </div>
-            <div style="text-align: center; margin-top: 1rem;">
-                <button type="button" class="btn btn-submit" onclick="closeModal()">Close</button>
-            </div>
+    <div class="row2">
+      <div class="field">
+        <div class="field-label-row">
+          <label>Match Number <span class="req">*</span></label>
+          <button class="info-btn" onclick="showInfo('Match Number','The current match number being scouted. Use + / − to increment. Minimum value: 0. Resets after submission.')">i</button>
         </div>
+        <div class="stepper">
+          <button class="stepper-btn" onclick="step('f_match',-1)">−</button>
+          <input class="stepper-val" type="number" id="f_match" value="0" min="0" onchange="clamp('f_match',0)">
+          <button class="stepper-btn" onclick="step('f_match',1)">+</button>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label-row">
+          <label>Team Number <span class="req">*</span></label>
+          <button class="info-btn" onclick="showInfo('Team Number','The FRC team number of the robot being scouted. Minimum value: 0. Resets after submission.')">i</button>
+        </div>
+        <div class="stepper">
+          <button class="stepper-btn" onclick="step('f_team',-1)">−</button>
+          <input class="stepper-val" type="number" id="f_team" value="0" min="0" onchange="clamp('f_team',0)">
+          <button class="stepper-btn" onclick="step('f_team',1)">+</button>
+        </div>
+      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script>
-        let timerInterval = null;
-        let timerSeconds = 0;
-        let timerRunning = false;
+    <div class="field">
+      <div class="field-label-row">
+        <label>Scouting Position <span class="req">*</span></label>
+        <button class="info-btn" onclick="showInfo('Scouting Position','Which alliance position this scouter is assigned to. Red 1/2/3 or Blue 1/2/3. Defaults to Red 1. Resets after submission.')">i</button>
+      </div>
+      <select id="f_pos">
+        <option value="Red 1" selected>Red 1</option>
+        <option value="Red 2">Red 2</option>
+        <option value="Red 3">Red 3</option>
+        <option value="Blue 1">Blue 1</option>
+        <option value="Blue 2">Blue 2</option>
+        <option value="Blue 3">Blue 3</option>
+      </select>
+    </div>
 
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
+    <div class="field">
+      <div class="bool-row">
+        <div class="field-label-row">
+          <label>Showed Up? <span class="req">*</span></label>
+          <button class="info-btn" onclick="showInfo('Showed Up?','Whether the team actually appeared on the field for this match. If set to No, the rest of the form will collapse. Default: Yes. Resets after submission.')">i</button>
+        </div>
+        <label class="toggle"><input type="checkbox" id="f_showed" checked onchange="toggleShowedUp()"><span class="slider"></span></label>
+      </div>
+    </div>
 
-        function incrementValue(fieldId) {
-            const input = document.getElementById(fieldId);
-            input.value = parseInt(input.value) + 1;
-        }
+    <div class="collapsible" id="mainForm">
+      <div class="field" style="margin-top:0.6rem;">
+        <div class="field-label-row">
+          <label>Starting Side <span class="req">*</span></label>
+          <button class="info-btn" onclick="showInfo('Starting Side','Which side of the field the robot starts on at the beginning of the match. Options: Center, Depot Side, Non-Depot Side. Resets after submission.')">i</button>
+        </div>
+        <select id="f_startside">
+          <option value="Center" selected>Center</option>
+          <option value="Depot Side">Depot Side</option>
+          <option value="Non-Depot Side">Non-Depot Side</option>
+        </select>
+      </div>
 
-        function decrementValue(fieldId) {
-            const input = document.getElementById(fieldId);
-            const currentValue = parseInt(input.value);
-            if (currentValue > 0) {
-                input.value = currentValue - 1;
-            }
-        }
+      <div class="field">
+        <div class="field-label-row">
+          <label>Match Timer</label>
+          <button class="info-btn" onclick="showInfo('Match Timer','Start this timer at the beginning of the match. It records timestamps used for the Died/Functioning Again fields. You can pause and reset it.')">i</button>
+        </div>
+        <div class="timer-display" id="timerDisplay">0:00</div>
+        <div class="timer-btns">
+          <button class="timer-btn btn-start" id="timerStartBtn" onclick="timerToggle()">▶ Start</button>
+          <button class="timer-btn btn-reset-t" onclick="timerReset()">↺ Reset</button>
+        </div>
+      </div>
 
-        function toggleFormSections() {
-            const showedUp = document.getElementById('showedUp').checked;
-            const sections = document.querySelectorAll('.collapsible-section');
-            
-            sections.forEach(section => {
-                if (showedUp) {
-                    section.classList.remove('collapsed');
-                } else {
-                    section.classList.add('collapsed');
-                }
-            });
-        }
+      <!-- AUTO -->
+      <div class="card-title" style="margin-top:1rem;">🤖 Autonomous</div>
 
-        function toggleDiedFields() {
-            const died = document.getElementById('died').checked;
-            const diedFields = document.getElementById('diedFields');
-            
-            if (died) {
-                diedFields.classList.remove('collapsed');
-            } else {
-                diedFields.classList.add('collapsed');
-                document.getElementById('functioningAgain').checked = false;
-                toggleFunctioningAgainField();
-            }
-        }
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Climbed Tower?</label>
+            <button class="info-btn" onclick="showInfo('Climbed Tower? (Auto)','Did the robot successfully climb the tower during autonomous? Default: No. Resets after submission.')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_climbed"><span class="slider"></span></label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Attempted Climb (Unsuccessful)?</label>
+            <button class="info-btn" onclick="showInfo('Attempted Climb (Unsuccessful)?','Did the robot attempt to climb the tower during auto but fail to complete it? Resets after submission.')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_attempted_climb"><span class="slider"></span></label>
+        </div>
+      </div>
 
-        function toggleFunctioningAgainField() {
-            const functioningAgain = document.getElementById('functioningAgain').checked;
-            const functioningAgainField = document.getElementById('functioningAgainField');
-            
-            if (functioningAgain) {
-                functioningAgainField.classList.remove('collapsed');
-            } else {
-                functioningAgainField.classList.add('collapsed');
-            }
-        }
+      <div class="row2">
+        <div class="field">
+          <div class="field-label-row"><label>Fuel Scored (Auto)</label><button class="info-btn" onclick="showInfo('Fuel Scored (Auto)','Number of fuel game pieces successfully scored by the robot during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_scored',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_scored" value="0" min="0" onchange="clamp('f_fuel_scored',0)"><button class="stepper-btn" onclick="step('f_fuel_scored',1)">+</button></div>
+        </div>
+        <div class="field">
+          <div class="field-label-row"><label>Fuel Missed (Auto)</label><button class="info-btn" onclick="showInfo('Fuel Missed (Auto)','Number of fuel game pieces attempted but missed during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_missed',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_missed" value="0" min="0" onchange="clamp('f_fuel_missed',0)"><button class="stepper-btn" onclick="step('f_fuel_missed',1)">+</button></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <div class="field-label-row"><label>Fuel Shot/Fed (Auto)</label><button class="info-btn" onclick="showInfo('Fuel Shot/Fed (Auto)','Number of fuel game pieces shot or fed during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_shotfed',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_shotfed" value="0" min="0" onchange="clamp('f_fuel_shotfed',0)"><button class="stepper-btn" onclick="step('f_fuel_shotfed',1)">+</button></div>
+        </div>
+        <div class="field">
+          <div class="field-label-row"><label>HP Fuel Scored (Auto)</label><button class="info-btn" onclick="showInfo('Human Player Fuel Scored (Auto)','Number of fuel game pieces scored by the human player during autonomous. Minimum: 0.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_hp_fuel',-1)">−</button><input class="stepper-val" type="number" id="f_hp_fuel" value="0" min="0" onchange="clamp('f_hp_fuel',0)"><button class="stepper-btn" onclick="step('f_hp_fuel',1)">+</button></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <div class="field-label-row"><label>Crossed Bump?</label><button class="info-btn" onclick="showInfo('Crossed Bump?','Number of times the robot crossed the bump during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_bump',-1)">−</button><input class="stepper-val" type="number" id="f_bump" value="0" min="0" onchange="clamp('f_bump',0)"><button class="stepper-btn" onclick="step('f_bump',1)">+</button></div>
+        </div>
+        <div class="field">
+          <div class="field-label-row"><label>Crossed Trench?</label><button class="info-btn" onclick="showInfo('Crossed Trench?','Number of times the robot crossed the trench during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_trench',-1)">−</button><input class="stepper-val" type="number" id="f_trench" value="0" min="0" onchange="clamp('f_trench',0)"><button class="stepper-btn" onclick="step('f_trench',1)">+</button></div>
+        </div>
+      </div>
 
-        function startTimer() {
-            if (!timerRunning) {
-                timerRunning = true;
-                document.getElementById('startBtn').disabled = true;
-                document.getElementById('pauseBtn').disabled = false;
-                
-                timerInterval = setInterval(() => {
-                    timerSeconds++;
-                    updateTimerDisplay();
-                }, 1000);
-            }
-        }
+      <!-- TELEOP -->
+      <div class="card-title" style="margin-top:1rem;">🕹️ Teleop</div>
 
-        function pauseTimer() {
-            if (timerRunning) {
-                timerRunning = false;
-                clearInterval(timerInterval);
-                document.getElementById('startBtn').disabled = false;
-                document.getElementById('pauseBtn').disabled = true;
-            }
-        }
+      <div class="row2">
+        <div class="field">
+          <div class="field-label-row"><label>Fuel Scored (Teleop)</label><button class="info-btn" onclick="showInfo('Fuel Scored (Teleop)','Number of fuel game pieces scored during teleop. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_scored_t',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_scored_t" value="0" min="0" onchange="clamp('f_fuel_scored_t',0)"><button class="stepper-btn" onclick="step('f_fuel_scored_t',1)">+</button></div>
+        </div>
+        <div class="field">
+          <div class="field-label-row"><label>Fuel Fed (Teleop)</label><button class="info-btn" onclick="showInfo('Fuel Fed (Teleop)','Number of fuel game pieces fed during teleop. Minimum: 0. Resets after submission.')">i</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_fed_t',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_fed_t" value="0" min="0" onchange="clamp('f_fuel_fed_t',0)"><button class="stepper-btn" onclick="step('f_fuel_fed_t',1)">+</button></div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="field-label-row"><label>HP Fuel Scored (Teleop)</label><button class="info-btn" onclick="showInfo('Human Player Fuel Scored (Teleop)','Number of fuel game pieces scored by the human player during teleop. Minimum: 0. Resets after submission.')">i</button></div>
+        <div class="stepper"><button class="stepper-btn" onclick="step('f_hp_fuel_t',-1)">−</button><input class="stepper-val" type="number" id="f_hp_fuel_t" value="0" min="0" onchange="clamp('f_hp_fuel_t',0)"><button class="stepper-btn" onclick="step('f_hp_fuel_t',1)">+</button></div>
+      </div>
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Crossed Field / Played Defense?</label>
+            <button class="info-btn" onclick="showInfo('Crossed Field / Played Defense?','Did the robot cross the field or play defense during teleop?')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_defense"><span class="slider"></span></label>
+        </div>
+      </div>
 
-        function resetTimer() {
-            timerRunning = false;
-            timerSeconds = 0;
-            clearInterval(timerInterval);
-            updateTimerDisplay();
-            document.getElementById('startBtn').disabled = false;
-            document.getElementById('pauseBtn').disabled = true;
-        }
+      <!-- ENDGAME -->
+      <div class="card-title" style="margin-top:1rem;">🏁 Endgame</div>
 
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-            document.getElementById('timerDisplay').textContent = 
-                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
+      <div class="field">
+        <div class="field-label-row">
+          <label>Climbed Tower (Endgame)</label>
+          <button class="info-btn" onclick="showInfo('Climbed Tower (Endgame)','The result of the robot\'s tower climb at the end of the match. Options: Didn\'t Climb, Unsuccessfully Attempted Climb, Level 1, Level 2, Level 3.')">i</button>
+        </div>
+        <select id="f_climb_end">
+          <option value="Didn't Climb" selected>Didn't Climb</option>
+          <option value="Unsuccessfully Attempted Climb">Unsuccessfully Attempted Climb</option>
+          <option value="Level 1">Level 1</option>
+          <option value="Level 2">Level 2</option>
+          <option value="Level 3">Level 3</option>
+        </select>
+      </div>
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Kept Scoring / Playing Until End?</label>
+            <button class="info-btn" onclick="showInfo('Kept Scoring / Playing Until End?','Did the robot continue actively scoring or playing until the match ended?')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_kept_scoring"><span class="slider"></span></label>
+        </div>
+      </div>
 
-        function recordTimestamp(fieldId) {
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-            document.getElementById(fieldId).value = 
-                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
+      <!-- POSTMATCH -->
+      <div class="card-title" style="margin-top:1rem;">📋 Postmatch</div>
 
-        function resetForm() {
-            // Reset all fields marked as "reset" to their default values
-            document.getElementById('matchNumber').value = 0;
-            document.getElementById('scoutingPosition').value = 'Red 1';
-            document.getElementById('teamNumber').value = 0;
-            document.getElementById('showedUp').checked = true;
-            document.getElementById('startingSide').value = 'Center';
-            
-            // Reset autonomous fields
-            document.getElementById('climbedTowerAuto').checked = false;
-            document.getElementById('attemptedClimbAuto').checked = false;
-            document.getElementById('fuelScoredAuto').value = 0;
-            document.getElementById('fuelMissedAuto').value = 0;
-            document.getElementById('fuelFedAuto').value = 0;
-            document.getElementById('humanPlayerFuelAuto').value = 0;
-            document.getElementById('crossedBump').value = 0;
-            document.getElementById('crossedTrench').value = 0;
-            
-            // Reset teleop fields
-            document.getElementById('fuelScoredTeleop').value = 0;
-            document.getElementById('fuelFedTeleop').value = 0;
-            document.getElementById('humanPlayerFuelTeleop').value = 0;
-            document.getElementById('crossedFieldDefense').checked = false;
-            
-            // Reset endgame fields
-            document.getElementById('climbedTowerEndgame').value = "Didn't Climb";
-            document.getElementById('keptPlaying').checked = false;
-            
-            // Reset postmatch fields
-            document.getElementById('died').checked = false;
-            document.getElementById('timeDied').value = '';
-            document.getElementById('functioningAgain').checked = false;
-            document.getElementById('timeFunctioningAgain').value = '';
-            document.getElementById('tippedOver').checked = false;
-            document.getElementById('comments').value = '';
-            
-            // Reset timer
-            resetTimer();
-            
-            // Reset collapsed sections
-            toggleFormSections();
-            toggleDiedFields();
-        }
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Died?</label>
+            <button class="info-btn" onclick="showInfo('Died?','Did the robot lose battery, stop functioning, or otherwise die during the match? Enabling this will reveal timestamp fields. Default: No. Resets after submission.')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_died" onchange="toggleDied()"><span class="slider"></span></label>
+        </div>
+        <div class="dep-fields collapsible collapsed" id="diedFields">
+          <div class="field" style="margin-bottom:0.75rem;">
+            <div class="bool-row">
+              <div class="field-label-row">
+                <label>Approx. Time Robot Died</label>
+                <button class="info-btn" onclick="showInfo('Approx. Time Robot Died','Timestamp (from the match timer) at which the robot died. Click the button to record the current timer value. Always included in QR output.')">i</button>
+              </div>
+              <button class="timer-btn btn-pause" style="width:auto;padding:0.4rem 0.9rem;font-size:0.85rem;" onclick="stampDied()">📌 Stamp</button>
+            </div>
+            <input type="text" id="f_time_died" placeholder="Timer not running" readonly style="margin-top:0.4rem;background:var(--bg3);">
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <div class="bool-row">
+              <div class="field-label-row">
+                <label>Functioning Again?</label>
+                <button class="info-btn" onclick="showInfo('Functioning Again?','Did the robot start functioning again after dying? Click Stamp to record the timer timestamp. Always included in QR output.')">i</button>
+              </div>
+              <button class="timer-btn btn-start" style="width:auto;padding:0.4rem 0.9rem;font-size:0.85rem;" onclick="stampFunctioning()">📌 Stamp</button>
+            </div>
+            <input type="text" id="f_functioning" placeholder="Timer not running" readonly style="margin-top:0.4rem;background:var(--bg3);">
+          </div>
+        </div>
+      </div>
 
-        function collectFormData() {
-            const data = {
-                name: document.getElementById('name').value,
-                matchNumber: document.getElementById('matchNumber').value,
-                scoutingPosition: document.getElementById('scoutingPosition').value,
-                teamNumber: document.getElementById('teamNumber').value,
-                showedUp: document.getElementById('showedUp').checked,
-                startingSide: document.getElementById('startingSide').value,
-                timerValue: document.getElementById('timerDisplay').textContent,
-                climbedTowerAuto: document.getElementById('climbedTowerAuto').checked,
-                attemptedClimbAuto: document.getElementById('attemptedClimbAuto').checked,
-                fuelScoredAuto: document.getElementById('fuelScoredAuto').value,
-                fuelMissedAuto: document.getElementById('fuelMissedAuto').value,
-                fuelFedAuto: document.getElementById('fuelFedAuto').value,
-                humanPlayerFuelAuto: document.getElementById('humanPlayerFuelAuto').value,
-                crossedBump: document.getElementById('crossedBump').value,
-                crossedTrench: document.getElementById('crossedTrench').value,
-                fuelScoredTeleop: document.getElementById('fuelScoredTeleop').value,
-                fuelFedTeleop: document.getElementById('fuelFedTeleop').value,
-                humanPlayerFuelTeleop: document.getElementById('humanPlayerFuelTeleop').value,
-                crossedFieldDefense: document.getElementById('crossedFieldDefense').checked,
-                climbedTowerEndgame: document.getElementById('climbedTowerEndgame').value,
-                keptPlaying: document.getElementById('keptPlaying').checked,
-                died: document.getElementById('died').checked,
-                timeDied: document.getElementById('timeDied').value,
-                functioningAgain: document.getElementById('functioningAgain').checked,
-                timeFunctioningAgain: document.getElementById('timeFunctioningAgain').value,
-                tippedOver: document.getElementById('tippedOver').checked,
-                comments: document.getElementById('comments').value
-            };
-            
-            return data;
-        }
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Tipped Over?</label>
+            <button class="info-btn" onclick="showInfo('Tipped Over?','Did the robot tip over and become unable to play during the match? Default: No. Resets after submission.')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_tipped"><span class="slider"></span></label>
+        </div>
+      </div>
 
-        function generateQRCode(data) {
-            // Convert data to pipe-delimited string for easy parsing in spreadsheet
-            const qrData = [
-                data.name,
-                data.matchNumber,
-                data.scoutingPosition,
-                data.teamNumber,
-                data.showedUp,
-                data.startingSide,
-                data.timerValue,
-                data.climbedTowerAuto,
-                data.attemptedClimbAuto,
-                data.fuelScoredAuto,
-                data.fuelMissedAuto,
-                data.fuelFedAuto,
-                data.humanPlayerFuelAuto,
-                data.crossedBump,
-                data.crossedTrench,
-                data.fuelScoredTeleop,
-                data.fuelFedTeleop,
-                data.humanPlayerFuelTeleop,
-                data.crossedFieldDefense,
-                data.climbedTowerEndgame,
-                data.keptPlaying,
-                data.died,
-                data.timeDied,
-                data.functioningAgain,
-                data.timeFunctioningAgain,
-                data.tippedOver,
-                data.comments
-            ].join('|');
-            
-            // Clear previous QR code
-            document.getElementById('qrcode').innerHTML = '';
-            
-            // Generate new QR code
-            new QRCode(document.getElementById('qrcode'), {
-                text: qrData,
-                width: 256,
-                height: 256,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-            });
-            
-            // Show modal
-            document.getElementById('qrModal').classList.add('active');
-        }
+    </div><!-- end collapsible mainForm -->
 
-        function closeModal() {
-            document.getElementById('qrModal').classList.remove('active');
-        }
+    <div class="field" style="margin-top:0.75rem;">
+      <div class="field-label-row">
+        <label>Comments <span class="req">*</span></label>
+        <button class="info-btn" onclick="showInfo('Comments','Any additional observations about the robot or match. No character limit. Required field. Resets after submission.')">i</button>
+      </div>
+      <textarea id="f_comments" placeholder="Notes about the robot or match..."></textarea>
+    </div>
 
-        document.getElementById('scoutingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = collectFormData();
-            generateQRCode(formData);
-        });
+  </div><!-- end card -->
 
-        // Initialize form
-        toggleFormSections();
-    </script>
+  <div class="action-btns">
+    <button class="gen-btn" onclick="generateQR()">📷 Generate QR Code</button>
+    <button class="rst-btn" onclick="resetForm()">↺ Reset Form</button>
+  </div>
+
+  <div id="qrOutput">
+    <canvas id="qrCanvas"></canvas>
+    <p>Scan with your Bluetooth scanner — tab-separated data fills across columns in Google Sheets</p>
+  </div>
+
+</div><!-- end page -->
+
+<!-- INFO MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <button class="modal-close" onclick="closeInfoModal()">Got it</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+// THEME
+function toggleTheme() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = dark ? '🌙 Dark' : '☀️ Light';
+}
+
+// STEPPER
+function step(id, delta) {
+  const el = document.getElementById(id);
+  const v = parseInt(el.value) || 0;
+  el.value = Math.max(0, v + delta);
+}
+function clamp(id, min) {
+  const el = document.getElementById(id);
+  if (parseInt(el.value) < min || el.value === '') el.value = min;
+}
+
+// TIMER
+let timerSec = 0, timerRunning = false, timerInterval = null;
+function timerToggle() {
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timerStartBtn').textContent = '▶ Resume';
+  } else {
+    timerInterval = setInterval(() => {
+      timerSec++;
+      const m = Math.floor(timerSec/60), s = timerSec%60;
+      document.getElementById('timerDisplay').textContent = m+':'+(s<10?'0':'')+s;
+    }, 1000);
+    timerRunning = true;
+    document.getElementById('timerStartBtn').textContent = '⏸ Pause';
+  }
+}
+function timerReset() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSec = 0;
+  document.getElementById('timerDisplay').textContent = '0:00';
+  document.getElementById('timerStartBtn').textContent = '▶ Start';
+}
+function currentTimestamp() {
+  const m = Math.floor(timerSec/60), s = timerSec%60;
+  return m+':'+(s<10?'0':'')+s;
+}
+function stampDied() {
+  document.getElementById('f_time_died').value = currentTimestamp();
+}
+function stampFunctioning() {
+  document.getElementById('f_functioning').value = currentTimestamp();
+}
+
+// SHOWED UP COLLAPSE
+function toggleShowedUp() {
+  const showed = document.getElementById('f_showed').checked;
+  document.getElementById('mainForm').classList.toggle('collapsed', !showed);
+}
+
+// DIED COLLAPSE
+function toggleDied() {
+  const died = document.getElementById('f_died').checked;
+  document.getElementById('diedFields').classList.toggle('collapsed', !died);
+}
+
+// INFO MODAL
+function showInfo(title, body) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').textContent = body;
+  document.getElementById('modal').classList.add('open');
+}
+function closeInfoModal() { document.getElementById('modal').classList.remove('open'); }
+function closeModal(e) { if (e.target === document.getElementById('modal')) closeInfoModal(); }
+
+// QR GENERATION
+function generateQR() {
+  const fields = [
+    document.getElementById('f_name').value,
+    document.getElementById('f_match').value,
+    document.getElementById('f_pos').value,
+    document.getElementById('f_team').value,
+    document.getElementById('f_showed').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_startside').value,
+    String(timerSec),                                    // Timer Start (seconds elapsed)
+    document.getElementById('f_climbed').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_attempted_climb').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_fuel_scored').value,
+    document.getElementById('f_fuel_missed').value,
+    document.getElementById('f_fuel_shotfed').value,
+    document.getElementById('f_hp_fuel').value,
+    document.getElementById('f_bump').value,
+    document.getElementById('f_trench').value,
+    document.getElementById('f_fuel_scored_t').value,
+    document.getElementById('f_fuel_fed_t').value,
+    document.getElementById('f_hp_fuel_t').value,
+    document.getElementById('f_defense').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_climb_end').value,
+    document.getElementById('f_kept_scoring').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_died').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_time_died').value || 'FALSE',   // always included
+    document.getElementById('f_functioning').value || 'FALSE', // always included
+    document.getElementById('f_tipped').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_comments').value,
+  ];
+
+  const text = fields.join('\t');
+  const out = document.getElementById('qrOutput');
+  const canvas = document.getElementById('qrCanvas');
+  out.style.display = 'block';
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+  const tmp = document.createElement('div');
+  tmp.style.display = 'none';
+  document.body.appendChild(tmp);
+  new QRCode(tmp, { text, width: 300, height: 300, correctLevel: QRCode.CorrectLevel.M });
+
+  setTimeout(() => {
+    const img = tmp.querySelector('img') || tmp.querySelector('canvas');
+    canvas.width = 300; canvas.height = 300;
+    const ctx = canvas.getContext('2d');
+    if (img.tagName === 'IMG') {
+      const i = new Image(); i.onload = () => ctx.drawImage(i,0,0); i.src = img.src;
+    } else { ctx.drawImage(img,0,0); }
+    document.body.removeChild(tmp);
+    out.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+// RESET (keeps Name, resets everything else)
+function resetForm() {
+  document.getElementById('f_match').value = '0';
+  document.getElementById('f_pos').value = 'Red 1';
+  document.getElementById('f_team').value = '0';
+  document.getElementById('f_showed').checked = true;
+  document.getElementById('mainForm').classList.remove('collapsed');
+  document.getElementById('f_startside').value = 'Center';
+  timerReset();
+  ['f_climbed','f_attempted_climb','f_defense','f_kept_scoring','f_died','f_tipped'].forEach(id => document.getElementById(id).checked = false);
+  document.getElementById('diedFields').classList.add('collapsed');
+  document.getElementById('f_time_died').value = '';
+  document.getElementById('f_functioning').value = '';
+  ['f_fuel_scored','f_fuel_missed','f_fuel_shotfed','f_hp_fuel','f_bump','f_trench',
+   'f_fuel_scored_t','f_fuel_fed_t','f_hp_fuel_t'].forEach(id => document.getElementById(id).value = '0');
+  document.getElementById('f_climb_end').value = "Didn't Climb";
+  document.getElementById('f_comments').value = '';
+  document.getElementById('qrOutput').style.display = 'none';
+}
+</script>
 </body>
 </html>
