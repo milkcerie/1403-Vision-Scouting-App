@@ -42,18 +42,22 @@
   --input-bg: #f9fdf9;
   --header-bg: #1b4332;
 }
-  [data-theme="cute"] {
-  --bg: #e78bbe;
-  --bg2: #fde4f2;
-  --bg3: #f4b9db;
-  --border: #d10363;
-  --text: #d10363;
-  --text2: #d10363;
-  --text3: #d10363;
-  --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  --toggle-bg: #b7e4c7;
-  --input-bg: #f9fdf9;
-  --header-bg: #1b4332;
+[data-theme="cute"] {
+  --bg: #fff0f6;
+  --bg2: #ffffff;
+  --bg3: #ffd6e8;
+  --border: #f78db8;
+  --text: #6b2d4e;
+  --text2: #c2185b;
+  --text3: #e91e8c;
+  --card-shadow: 0 2px 8px rgba(247,141,184,0.2);
+  --toggle-bg: #ffc0d9;
+  --input-bg: #fff8fb;
+  --header-bg: #f06292;
+  --green: #f06292;
+  --green-light: #f78db8;
+  --green-dark: #c2185b;
+  --green-faint: #ffd6e8;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.2s, color 0.2s; }
@@ -435,9 +439,10 @@ select option { background: var(--bg2); }
 // THEME
 function toggleTheme() {
   const html = document.documentElement;
-  const dark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', dark ? 'light' : 'dark');
-  document.getElementById('themeBtn').textContent = dark ? '🌙 Dark' : '☀️ Light';
+  const cur = html.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : cur === 'light' ? 'cute' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️ Light' : next === 'light' ? '🌸 Cute' : '🌙 Dark';
 }
 
 // STEPPER
