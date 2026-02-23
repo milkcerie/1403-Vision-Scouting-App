@@ -1,6 +1,6 @@
 # 1403-Vision-Scouting-App
 2026 scouting app for 1403.
-Features:
+/nFeatures:
 * QR Code Generation — Encodes all scouting data as a tab-separated string so that scanning with a Bluetooth barcode scanner automatically distributes each value into its own column in Google Sheets
 * Data/Form Validation: The Generate QR Code button is disabled until all required fields (Name, Match Number, Team Number) are filled in
 * Collapsible Form: If "Showed Up?" is toggled off, the rest of the form collapses to reduce clutter for no-show entries
