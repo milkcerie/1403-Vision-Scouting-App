@@ -275,17 +275,17 @@ select option { background: var(--bg2); }
       <div class="row2">
         <div class="field">
           <div class="field-label-row"><label>Fuel Scored (Auto)</label><button class="info-btn" onclick="showInfo('Fuel Scored (Auto)','Number of fuel game pieces successfully scored by the robot during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_scored',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_scored" value="0" min="0" onchange="clamp('f_fuel_scored',0)"><button class="stepper-btn" onclick="step('f_fuel_scored',1)">+</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_scored',-4)">−</button><input class="stepper-val" type="number" id="f_fuel_scored" value="0" min="0" onchange="clamp('f_fuel_scored',0)"><button class="stepper-btn" onclick="step('f_fuel_scored',4)">+</button></div>
         </div>
         <div class="field">
           <div class="field-label-row"><label>Fuel Missed (Auto)</label><button class="info-btn" onclick="showInfo('Fuel Missed (Auto)','Number of fuel game pieces attempted but missed during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_missed',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_missed" value="0" min="0" onchange="clamp('f_fuel_missed',0)"><button class="stepper-btn" onclick="step('f_fuel_missed',1)">+</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_missed',-4)">−</button><input class="stepper-val" type="number" id="f_fuel_missed" value="0" min="0" onchange="clamp('f_fuel_missed',0)"><button class="stepper-btn" onclick="step('f_fuel_missed',4)">+</button></div>
         </div>
       </div>
       <div class="row2">
         <div class="field">
           <div class="field-label-row"><label>Fuel Shot/Fed (Auto)</label><button class="info-btn" onclick="showInfo('Fuel Shot/Fed (Auto)','Number of fuel game pieces shot or fed during autonomous. Minimum: 0. Resets after submission.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_shotfed',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_shotfed" value="0" min="0" onchange="clamp('f_fuel_shotfed',0)"><button class="stepper-btn" onclick="step('f_fuel_shotfed',1)">+</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_shotfed',-4)">−</button><input class="stepper-val" type="number" id="f_fuel_shotfed" value="0" min="0" onchange="clamp('f_fuel_shotfed',0)"><button class="stepper-btn" onclick="step('f_fuel_shotfed',4)">+</button></div>
         </div>
         <div class="field">
           <div class="field-label-row"><label>HP Fuel Scored (Auto)</label><button class="info-btn" onclick="showInfo('Human Player Fuel Scored (Auto)','Number of fuel game pieces scored by the human player during autonomous. Minimum: 0.')">i</button></div>
@@ -309,7 +309,7 @@ select option { background: var(--bg2); }
       <div class="row2">
         <div class="field">
           <div class="field-label-row"><label>Fuel Scored (Teleop)</label><button class="info-btn" onclick="showInfo('Fuel Scored (Teleop)','Number of fuel game pieces scored during teleop. Minimum: 0. Resets after submission.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_scored_t',-1)">−</button><input class="stepper-val" type="number" id="f_fuel_scored_t" value="0" min="0" onchange="clamp('f_fuel_scored_t',0)"><button class="stepper-btn" onclick="step('f_fuel_scored_t',1)">+</button></div>
+          <div class="stepper"><button class="stepper-btn" onclick="step('f_fuel_scored_t',-4)">−</button><input class="stepper-val" type="number" id="f_fuel_scored_t" value="0" min="0" onchange="clamp('f_fuel_scored_t',0)"><button class="stepper-btn" onclick="step('f_fuel_scored_t',4)">+</button></div>
         </div>
         <div class="field">
           <div class="field-label-row"><label>Fuel Fed (Teleop)</label><button class="info-btn" onclick="showInfo('Fuel Fed (Teleop)','Number of fuel game pieces fed during teleop. Minimum: 0. Resets after submission.')">i</button></div>
