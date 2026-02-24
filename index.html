@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>1403 Vision Scouting App</title>
 <style>
 :root {
@@ -172,7 +172,7 @@ select option { background: var(--bg2); }
     <div class="field">
       <div class="field-label-row">
         <label>Name <span class="req">*</span></label>
-        <button class="info-btn" onclick="showInfo('Name','The name of the scouter filling out this form (you!). Does not reset after submission.')">i</button>
+        <button class="info-btn" onclick="showInfo('Name','The name of the scouter filling out this form. This field is NOT reset between matches.')">i</button>
       </div>
       <input type="text" id="f_name" placeholder="Your name">
     </div>
@@ -229,7 +229,7 @@ select option { background: var(--bg2); }
       <div class="field" style="margin-top:0.6rem;">
         <div class="field-label-row">
           <label>Starting Side <span class="req">*</span></label>
-          <button class="info-btn" onclick="showInfo('Starting Side','Which side of the field the robot starts on at the beginning of the match! Options: Center, Depot Side, Non-Depot Side. Resets after submission.')">i</button>
+          <button class="info-btn" onclick="showInfo('Starting Side','Which side of the field the robot starts on at the beginning of the match. Options: Center, Depot Side, Non-Depot Side. Resets after submission.')">i</button>
         </div>
         <select id="f_startside">
           <option value="Center" selected>Center</option>
@@ -241,7 +241,7 @@ select option { background: var(--bg2); }
       <div class="field">
         <div class="field-label-row">
           <label>Match Timer</label>
-          <button class="info-btn" onclick="showInfo('Match Timer','Start this timer right at the beginning of the match. It records timestamps used for the Died/Functioning Again fields. You can pause and reset it.')">i</button>
+          <button class="info-btn" onclick="showInfo('Match Timer','Start this timer at the beginning of the match. It records timestamps used for the Died/Functioning Again fields. You can pause and reset it.')">i</button>
         </div>
         <div class="timer-display" id="timerDisplay">0:00</div>
         <div class="timer-btns">
