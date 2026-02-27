@@ -14,3 +14,4 @@ Features:
 * Reset: Resets all match-specific fields after submission while preserving the scouter's name across matches
 * Themes: Sleek Dark, Light, and Cute modes that can be easily toggled in the header
 * Accessible Design: High contrast UI with large, finger-friendly buttons suitable for use on both mobile devices and computers
+* Static Tapping: The "tap to zoom in" feature is disabled for mobile devices so that scouters can quickly spam increment fuel counts.
