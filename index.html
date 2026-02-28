@@ -303,13 +303,7 @@ select option { background: var(--bg2); }
         </div>
       </div>
 
-      <div class="row2">
-        <div class="field">
-          <div class="field-label-row"><label>HP Fuel Scored (Auto)</label><button class="info-btn" onclick="showInfo('Human Player Fuel Scored (Auto)','Number of fuel game pieces scored by the human player during autonomous.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_hp_fuel',-1)">−</button><input class="stepper-val" type="number" id="f_hp_fuel" value="0" min="0" onchange="clamp('f_hp_fuel',0)"><button class="stepper-btn" onclick="step('f_hp_fuel',1)">+</button></div>
-        </div>
-        <div class="field" style="align-self:end;"><!-- spacer --></div>
-      </div>
+
 
       <div class="field">
         <div class="bool-row">
@@ -361,10 +355,7 @@ select option { background: var(--bg2); }
         </div>
       </div>
 
-      <div class="field">
-        <div class="field-label-row"><label>HP Fuel Scored (Teleop)</label><button class="info-btn" onclick="showInfo('Human Player Fuel Scored (Teleop)','Number of fuel game pieces scored by the human player during teleop.')">i</button></div>
-        <div class="stepper"><button class="stepper-btn" onclick="step('f_hp_fuel_t',-1)">−</button><input class="stepper-val" type="number" id="f_hp_fuel_t" value="0" min="0" onchange="clamp('f_hp_fuel_t',0)"><button class="stepper-btn" onclick="step('f_hp_fuel_t',1)">+</button></div>
-      </div>
+
 
       <div class="field">
         <div class="bool-row">
@@ -653,14 +644,12 @@ function generateQR() {
     document.getElementById('f_fuel_missed').value,
     String(cycles.fuel_shotfed.length),
     avgCycleTime(cycles.fuel_shotfed) !== null ? avgCycleTime(cycles.fuel_shotfed) : '0',
-    document.getElementById('f_hp_fuel').value,
-    b('f_bump'),
+    document.getElementById('f_bump').checked ? '1' : '0',
     b('f_trench'),
     String(cycles.fuel_scored_t.length),
     avgCycleTime(cycles.fuel_scored_t) !== null ? avgCycleTime(cycles.fuel_scored_t) : '0',
     String(cycles.fuel_fed_t.length),
     avgCycleTime(cycles.fuel_fed_t) !== null ? avgCycleTime(cycles.fuel_fed_t) : '0',
-    document.getElementById('f_hp_fuel_t').value,
     b('f_defense'),
     document.getElementById('f_climb_end').value,
     b('f_kept_scoring'),
@@ -712,14 +701,12 @@ function buildSummary() {
     ['Fuel Missed (Auto)', document.getElementById('f_fuel_missed').value],
     ['Fuel Shot/Fed (Auto) — Cycles', String(cycles.fuel_shotfed.length)],
     ['Fuel Shot/Fed (Auto) — Avg Cycle', avgCycleTime(cycles.fuel_shotfed) !== null ? avgCycleTime(cycles.fuel_shotfed) + 's' : '0'],
-    ['HP Fuel Scored (Auto)', document.getElementById('f_hp_fuel').value],
     ['Crossed Bump?', document.getElementById('f_bump').checked ? 'TRUE' : 'FALSE'],
     ['Crossed Trench?', document.getElementById('f_trench').checked ? 'TRUE' : 'FALSE'],
     ['Fuel Scored (Teleop) — Cycles', String(cycles.fuel_scored_t.length)],
     ['Fuel Scored (Teleop) — Avg Cycle', avgCycleTime(cycles.fuel_scored_t) !== null ? avgCycleTime(cycles.fuel_scored_t) + 's' : '0'],
     ['Fuel Fed (Teleop) — Cycles', String(cycles.fuel_fed_t.length)],
     ['Fuel Fed (Teleop) — Avg Cycle', avgCycleTime(cycles.fuel_fed_t) !== null ? avgCycleTime(cycles.fuel_fed_t) + 's' : '0'],
-    ['HP Fuel Scored (Teleop)', document.getElementById('f_hp_fuel_t').value],
     ['Crossed Field / Played Defense?', document.getElementById('f_defense').checked ? 'TRUE' : 'FALSE'],
     ['Climbed Tower (Endgame)', document.getElementById('f_climb_end').value],
     ['Kept Scoring Until End?', document.getElementById('f_kept_scoring').checked ? 'TRUE' : 'FALSE'],
@@ -765,7 +752,7 @@ function resetForm() {
   document.getElementById('diedFields').classList.add('collapsed');
   document.getElementById('f_time_died').value = '';
   document.getElementById('f_functioning').value = '';
-  ['f_fuel_missed','f_hp_fuel','f_hp_fuel_t'].forEach(id => document.getElementById(id).value = '0');
+  ['f_fuel_missed'].forEach(id => document.getElementById(id).value = '0');
   ['f_bump','f_trench'].forEach(id => document.getElementById(id).checked = false);
   // Reset cycles
   Object.keys(cycles).forEach(k => { cycles[k] = []; updateCycleUI(k); });
