@@ -665,8 +665,8 @@ function generateQR() {
     document.getElementById('f_climb_end').value,
     b('f_kept_scoring'),
     b('f_died'),
-    document.getElementById('f_time_died').value || '0:00',
-    document.getElementById('f_functioning').value || '0',
+    document.getElementById('f_died').checked ? (document.getElementById('f_time_died').value || '0:00') : 'N/A',
+    document.getElementById('f_died').checked ? (document.getElementById('f_functioning').value || '0') : 'N/A',
     b('f_tipped'),
     document.getElementById('f_comments').value,
   ];
