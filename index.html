@@ -311,14 +311,22 @@ select option { background: var(--bg2); }
         <div class="field" style="align-self:end;"><!-- spacer --></div>
       </div>
 
-      <div class="row2">
-        <div class="field">
-          <div class="field-label-row"><label>Crossed Bump?</label><button class="info-btn" onclick="showInfo('Crossed Bump?','Number of times the robot crossed the bump during autonomous.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_bump',-1)">−</button><input class="stepper-val" type="number" id="f_bump" value="0" min="0" onchange="clamp('f_bump',0)"><button class="stepper-btn" onclick="step('f_bump',1)">+</button></div>
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Crossed Bump?</label>
+            <button class="info-btn" onclick="showInfo('Crossed Bump?','Did the robot cross the bump during autonomous?')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_bump"><span class="slider"></span></label>
         </div>
-        <div class="field">
-          <div class="field-label-row"><label>Crossed Trench?</label><button class="info-btn" onclick="showInfo('Crossed Trench?','Number of times the robot crossed the trench during autonomous.')">i</button></div>
-          <div class="stepper"><button class="stepper-btn" onclick="step('f_trench',-1)">−</button><input class="stepper-val" type="number" id="f_trench" value="0" min="0" onchange="clamp('f_trench',0)"><button class="stepper-btn" onclick="step('f_trench',1)">+</button></div>
+      </div>
+      <div class="field">
+        <div class="bool-row">
+          <div class="field-label-row">
+            <label>Crossed Trench?</label>
+            <button class="info-btn" onclick="showInfo('Crossed Trench?','Did the robot cross the trench during autonomous?')">i</button>
+          </div>
+          <label class="toggle"><input type="checkbox" id="f_trench"><span class="slider"></span></label>
         </div>
       </div>
 
@@ -505,6 +513,8 @@ const cycles = {
   fuel_fed_t:    []
 };
 
+function b(id) { return document.getElementById(id).checked ? '1' : '0'; }
+
 function avgCycleTime(timestamps) {
   if (timestamps.length < 2) return null;
   let total = 0;
@@ -634,37 +644,30 @@ function generateQR() {
     document.getElementById('f_match').value,
     document.getElementById('f_pos').value,
     document.getElementById('f_team').value,
-    document.getElementById('f_showed').checked ? 'TRUE' : 'FALSE',
+    b('f_showed'),
     document.getElementById('f_startside').value,
-    document.getElementById('f_climbed').checked ? 'TRUE' : 'FALSE',
-    document.getElementById('f_attempted_climb').checked ? 'TRUE' : 'FALSE',
-    // Fuel Scored (Auto): cycles + avg
+    b('f_climbed'),
+    b('f_attempted_climb'),
     String(cycles.fuel_scored.length),
     avgCycleTime(cycles.fuel_scored) !== null ? avgCycleTime(cycles.fuel_scored) : '0',
-    // Fuel Missed (Auto): stepper
     document.getElementById('f_fuel_missed').value,
-    // Fuel Shot/Fed (Auto): cycles + avg
     String(cycles.fuel_shotfed.length),
     avgCycleTime(cycles.fuel_shotfed) !== null ? avgCycleTime(cycles.fuel_shotfed) : '0',
-    // HP Fuel Scored (Auto): stepper
     document.getElementById('f_hp_fuel').value,
-    document.getElementById('f_bump').value,
-    document.getElementById('f_trench').value,
-    // Fuel Scored (Teleop): cycles + avg
+    b('f_bump'),
+    b('f_trench'),
     String(cycles.fuel_scored_t.length),
     avgCycleTime(cycles.fuel_scored_t) !== null ? avgCycleTime(cycles.fuel_scored_t) : '0',
-    // Fuel Fed (Teleop): cycles + avg
     String(cycles.fuel_fed_t.length),
     avgCycleTime(cycles.fuel_fed_t) !== null ? avgCycleTime(cycles.fuel_fed_t) : '0',
-    // HP Fuel Scored (Teleop): stepper
     document.getElementById('f_hp_fuel_t').value,
-    document.getElementById('f_defense').checked ? 'TRUE' : 'FALSE',
+    b('f_defense'),
     document.getElementById('f_climb_end').value,
-    document.getElementById('f_kept_scoring').checked ? 'TRUE' : 'FALSE',
-    document.getElementById('f_died').checked ? 'TRUE' : 'FALSE',
+    b('f_kept_scoring'),
+    b('f_died'),
     document.getElementById('f_time_died').value || '0:00',
-    document.getElementById('f_functioning').value || 'FALSE',
-    document.getElementById('f_tipped').checked ? 'TRUE' : 'FALSE',
+    document.getElementById('f_functioning').value || '0',
+    b('f_tipped'),
     document.getElementById('f_comments').value,
   ];
 
@@ -710,8 +713,8 @@ function buildSummary() {
     ['Fuel Shot/Fed (Auto) — Cycles', String(cycles.fuel_shotfed.length)],
     ['Fuel Shot/Fed (Auto) — Avg Cycle', avgCycleTime(cycles.fuel_shotfed) !== null ? avgCycleTime(cycles.fuel_shotfed) + 's' : '0'],
     ['HP Fuel Scored (Auto)', document.getElementById('f_hp_fuel').value],
-    ['Crossed Bump?', document.getElementById('f_bump').value],
-    ['Crossed Trench?', document.getElementById('f_trench').value],
+    ['Crossed Bump?', document.getElementById('f_bump').checked ? 'TRUE' : 'FALSE'],
+    ['Crossed Trench?', document.getElementById('f_trench').checked ? 'TRUE' : 'FALSE'],
     ['Fuel Scored (Teleop) — Cycles', String(cycles.fuel_scored_t.length)],
     ['Fuel Scored (Teleop) — Avg Cycle', avgCycleTime(cycles.fuel_scored_t) !== null ? avgCycleTime(cycles.fuel_scored_t) + 's' : '0'],
     ['Fuel Fed (Teleop) — Cycles', String(cycles.fuel_fed_t.length)],
@@ -762,7 +765,8 @@ function resetForm() {
   document.getElementById('diedFields').classList.add('collapsed');
   document.getElementById('f_time_died').value = '';
   document.getElementById('f_functioning').value = '';
-  ['f_fuel_missed','f_hp_fuel','f_bump','f_trench','f_hp_fuel_t'].forEach(id => document.getElementById(id).value = '0');
+  ['f_fuel_missed','f_hp_fuel','f_hp_fuel_t'].forEach(id => document.getElementById(id).value = '0');
+  ['f_bump','f_trench'].forEach(id => document.getElementById(id).checked = false);
   // Reset cycles
   Object.keys(cycles).forEach(k => { cycles[k] = []; updateCycleUI(k); });
   document.getElementById('f_climb_end').value = "Didn't Climb";
