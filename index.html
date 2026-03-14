@@ -38,32 +38,27 @@ header h1 span { color:#74c69d; }
 .field:last-child { margin-bottom:0; }
 .field-label-row { display:flex; align-items:center; gap:0.4rem; margin-bottom:0.35rem; }
 .field-label-row label { font-size:0.9rem; font-weight:700; color:var(--text); }
-.req { color:#ff6b6b; font-size:0.85rem; }
+.req { color:#ff6b6b; }
 .info-btn { width:20px; height:20px; border-radius:50%; border:1.5px solid var(--text3); background:transparent; color:var(--text3); font-size:0.7rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; touch-action:manipulation; }
 input[type="text"], input[type="number"], textarea, select {
   width:100%; padding:0.65rem 0.85rem; border:2px solid var(--border); border-radius:8px;
-  font-size:1rem; color:var(--text); background:var(--input-bg); -webkit-appearance:none;
-  -moz-appearance:textfield;
+  font-size:1rem; color:var(--text); background:var(--input-bg); -webkit-appearance:none; -moz-appearance:textfield;
 }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance:none; }
 textarea { resize:vertical; min-height:90px; font-family:inherit; }
 select option { background:var(--bg2); }
-/* MULTI-STEPPER */
-.mstepper { display:grid; grid-template-columns:repeat(3, 1fr) 1.6fr repeat(3, 1fr); border:2px solid var(--border); border-radius:8px; overflow:hidden; }
+.mstepper { display:grid; grid-template-columns:repeat(3,1fr) 1.6fr repeat(3,1fr); border:2px solid var(--border); border-radius:8px; overflow:hidden; }
 .ms-btn { background:var(--bg3); border:none; border-right:1px solid var(--border); color:var(--text); font-size:1rem; font-weight:800; height:56px; cursor:pointer; display:flex; align-items:center; justify-content:center; touch-action:manipulation; }
+.ms-btn:nth-child(5), .ms-btn:nth-child(6) { border-left:1px solid var(--border); }
 .ms-btn:last-child { border-right:none; border-left:1px solid var(--border); }
-.ms-btn:nth-child(5), .ms-btn:nth-child(6) { border-left:1px solid var(--border); border-right:1px solid var(--border); }
 .ms-btn:active { background:var(--green); color:#fff; }
-.ms-val { text-align:center; font-size:1.1rem; font-weight:700; color:var(--text); background:var(--input-bg); border:none; border-left:2px solid var(--border); border-right:2px solid var(--border); height:56px; min-width:52px; width:calc(100% + 20px); outline:none; -moz-appearance:textfield; }
+.ms-val { text-align:center; font-size:1.1rem; font-weight:700; color:var(--text); background:var(--input-bg); border:none; border-left:2px solid var(--border); border-right:2px solid var(--border); height:56px; min-width:52px; width:100%; outline:none; -moz-appearance:textfield; }
 .ms-val::-webkit-inner-spin-button, .ms-val::-webkit-outer-spin-button { -webkit-appearance:none; }
-/* BASIC STEPPER */
 .stepper { display:flex; align-items:center; border:2px solid var(--border); border-radius:8px; overflow:hidden; }
 .stepper-btn { background:var(--bg3); border:none; color:var(--text); font-size:1.2rem; font-weight:700; width:38px; height:44px; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; touch-action:manipulation; }
 .stepper-btn:active { background:var(--green); color:#fff; }
 .stepper-val { flex:1; text-align:center; font-size:1rem; font-weight:700; color:var(--text); background:var(--input-bg); border:none; height:44px; outline:none; min-width:0; -moz-appearance:textfield; }
 .stepper-val::-webkit-inner-spin-button, .stepper-val::-webkit-outer-spin-button { -webkit-appearance:none; }
-/* TOGGLE */
 .bool-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
 .bool-row .field-label-row { margin-bottom:0; flex:1; }
 .toggle { position:relative; width:56px; height:30px; flex-shrink:0; }
@@ -72,33 +67,29 @@ select option { background:var(--bg2); }
 .slider:before { content:''; position:absolute; width:22px; height:22px; left:2px; top:2px; background:var(--text2); border-radius:50%; transition:transform 0.2s,background 0.2s; }
 .toggle input:checked + .slider { background:var(--green); border-color:var(--green-light); }
 .toggle input:checked + .slider:before { transform:translateX(26px); background:#fff; }
-/* FUEL TIMER */
 .fuel-timer-box { background:var(--bg3); border:2px solid var(--border); border-radius:8px; padding:0.75rem; }
 .fuel-timer-display { font-size:1.5rem; font-weight:800; text-align:center; color:var(--text3); font-variant-numeric:tabular-nums; margin-bottom:0.25rem; }
 .fuel-cycle-display { text-align:center; font-size:0.8rem; font-weight:700; color:var(--text2); margin-bottom:0.5rem; }
 .fuel-timer-btns { display:flex; gap:0.5rem; }
 .ft-btn { flex:1; padding:0.65rem; border:none; border-radius:8px; font-size:0.95rem; font-weight:700; cursor:pointer; touch-action:manipulation; }
-.ft-btn:active { opacity:0.8; }
-.ft-play { background:var(--green); color:#fff; }
+.ft-play  { background:var(--green); color:#fff; }
 .ft-pause { background:#e67e22; color:#fff; }
 .ft-reset { background:var(--bg2); color:var(--text2); border:2px solid var(--border); }
-/* COLLAPSIBLE */
 .collapsible { overflow:hidden; transition:max-height 0.4s ease,opacity 0.4s ease; max-height:9999px; opacity:1; }
 .collapsible.collapsed { max-height:0; opacity:0; pointer-events:none; }
-/* MODAL */
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; align-items:center; justify-content:center; padding:1.5rem; }
 .modal-overlay.open { display:flex; }
 .modal { background:var(--bg2); border:2px solid var(--green-light); border-radius:14px; padding:1.5rem; max-width:420px; width:100%; }
 .modal h3 { color:var(--text3); font-size:1rem; margin-bottom:0.6rem; }
 .modal p { color:var(--text); font-size:0.92rem; line-height:1.5; }
 .modal-close { margin-top:1.1rem; width:100%; padding:0.7rem; background:var(--green); color:#fff; border:none; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; touch-action:manipulation; }
-/* ACTION */
 .action-btns { display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem; }
 .gen-btn { padding:1rem; background:var(--green); color:#fff; border:none; border-radius:10px; font-size:1.1rem; font-weight:800; cursor:pointer; touch-action:manipulation; }
 .rst-btn { padding:0.8rem; background:transparent; color:var(--text2); border:2px solid var(--border); border-radius:10px; font-size:0.95rem; font-weight:700; cursor:pointer; touch-action:manipulation; }
-#qrOutput { display:none; text-align:center; margin-top:1.1rem; background:var(--bg2); border:1.5px solid var(--border); border-radius:12px; padding:1.5rem; }
-#qrOutput p { font-size:0.82rem; color:var(--text2); margin-top:0.75rem; margin-bottom:0.75rem; }
-#qrContainer img, #qrContainer canvas { border:4px solid var(--green); border-radius:10px; max-width:100%; }
+#qrOutput { display:none; margin-top:1.1rem; background:var(--bg2); border:1.5px solid var(--border); border-radius:12px; padding:1.5rem; text-align:center; }
+#qrContainer { display:flex; justify-content:center; margin-bottom:0.75rem; }
+#qrContainer img, #qrContainer canvas { max-width:100%; border:4px solid var(--green); border-radius:10px; }
+#qrRawText { font-size:0.72rem; color:var(--text2); word-break:break-all; background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:0.5rem; margin-bottom:0.75rem; text-align:left; }
 .dep-fields { background:var(--bg3); border-radius:8px; padding:0.85rem; margin-top:0.75rem; border:1.5px dashed var(--border); }
 </style>
 </head>
@@ -149,9 +140,7 @@ select option { background:var(--bg2); }
   <div class="collapsible" id="mainForm">
     <div class="field" style="margin-top:0.6rem;">
       <div class="field-label-row"><label>Starting Side <span class="req">*</span></label><button class="info-btn" id="ib_startside">i</button></div>
-      <select id="f_startside">
-        <option>Center</option><option>Depot Side</option><option>Non-Depot Side</option>
-      </select>
+      <select id="f_startside"><option>Center</option><option>Depot Side</option><option>Non-Depot Side</option></select>
     </div>
 
     <!-- AUTO -->
@@ -271,9 +260,7 @@ select option { background:var(--bg2); }
         <div class="dep-fields collapsible collapsed" id="climbEndFields">
           <div class="field" style="margin-bottom:0;">
             <div class="field-label-row"><label>Climb Level</label><button class="info-btn" id="ib_climb_level">i</button></div>
-            <select id="f_climb_level">
-              <option>Didn't Climb</option><option>Level 1</option><option>Level 2</option><option>Level 3</option>
-            </select>
+            <select id="f_climb_level"><option>Didn't Climb</option><option>Level 1</option><option>Level 2</option><option>Level 3</option></select>
           </div>
         </div>
       </div>
@@ -322,7 +309,7 @@ select option { background:var(--bg2); }
     <div class="field-label-row"><label>Comments <span class="req">*</span></label><button class="info-btn" id="ib_comments">i</button></div>
     <textarea id="f_comments" placeholder="Notes about the robot or match..."></textarea>
   </div>
-</div>
+</div><!-- end prematch card -->
 
 <div class="action-btns">
   <button class="gen-btn" id="genBtn" disabled style="opacity:0.4;cursor:not-allowed;">📷 Generate QR Code</button>
@@ -331,11 +318,10 @@ select option { background:var(--bg2); }
 </div>
 
 <div id="qrOutput">
-  <p style="font-size:0.82rem;color:var(--text2);margin-bottom:0.75rem;">Scan with your Bluetooth scanner — comma-separated values paste across columns in Google Sheets</p>
-  <div id="qrContainer" style="display:flex;justify-content:center;margin-bottom:0.75rem;"></div>
-  <div id="qrRawText" style="font-size:0.72rem;color:var(--text2);word-break:break-all;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:0.5rem;margin-bottom:0.5rem;text-align:left;"></div>
-  <button class="rst-btn" id="copyBtn" style="margin-top:0.25rem;font-size:0.85rem;padding:0.55rem;">📋 Copy Data to Clipboard</button>
-  <details style="margin-top:0.75rem;text-align:left;">
+  <div id="qrContainer"></div>
+  <div id="qrRawText"></div>
+  <button class="rst-btn" id="copyBtn" style="margin-bottom:0.75rem;font-size:0.85rem;padding:0.55rem;">📋 Copy Data to Clipboard</button>
+  <details style="text-align:left;">
     <summary style="cursor:pointer;font-size:0.85rem;font-weight:700;color:var(--text3);padding:0.5rem;border:1.5px solid var(--border);border-radius:8px;list-style:none;text-align:center;">🔍 Verify Submitted Data</summary>
     <table id="summaryTable" style="width:100%;margin-top:0.6rem;border-collapse:collapse;font-size:0.82rem;"></table>
   </details>
@@ -353,7 +339,7 @@ select option { background:var(--bg2); }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-// ── FUEL TIMER STATE ──────────────────────────────────────────────
+// ── FUEL TIMERS ───────────────────────────────────────────────────
 const ft = {
   score_a: { ms:0, running:false, raf:null, startWall:0, cycles:0 },
   feed_a:  { ms:0, running:false, raf:null, startWall:0, cycles:0 },
@@ -362,39 +348,35 @@ const ft = {
 };
 
 function ftFmtMs(ms) {
-  const total = Math.floor(ms / 100);
-  const tenths = total % 10;
-  const secs = Math.floor(total / 10) % 60;
-  const mins = Math.floor(total / 600);
+  const tenths = Math.floor(ms / 100) % 10;
+  const secs   = Math.floor(ms / 1000) % 60;
+  const mins   = Math.floor(ms / 60000);
   return mins + ':' + (secs < 10 ? '0' : '') + secs + '.' + tenths;
 }
 
 function ftTick(key) {
-  const s = ft[key];
-  if (!s.running) return;
-  s.ms = Date.now() - s.startWall;
-  document.getElementById('ftd_' + key).textContent = ftFmtMs(s.ms);
-  s.raf = requestAnimationFrame(() => ftTick(key));
+  if (!ft[key].running) return;
+  ft[key].ms = Date.now() - ft[key].startWall;
+  document.getElementById('ftd_' + key).textContent = ftFmtMs(ft[key].ms);
+  ft[key].raf = requestAnimationFrame(() => ftTick(key));
 }
 
 function ftPlay(key) {
   const s = ft[key];
-  const isScoring = key === 'score_a' || key === 'score_t';
   const btn = document.getElementById('ftb_' + key);
+  const isScoring = key === 'score_a' || key === 'score_t';
   if (s.running) {
-    // PAUSE
     cancelAnimationFrame(s.raf);
     s.running = false;
     btn.textContent = '▶ Play';
     btn.className = 'ft-btn ft-play';
   } else {
-    // PLAY
+    s.running = true;
     if (isScoring) {
       s.cycles++;
       document.getElementById('ftc_' + key).textContent = s.cycles + ' cycle' + (s.cycles !== 1 ? 's' : '');
     }
     s.startWall = Date.now() - s.ms;
-    s.running = true;
     btn.textContent = '⏸ Pause';
     btn.className = 'ft-btn ft-pause';
     ftTick(key);
@@ -402,12 +384,11 @@ function ftPlay(key) {
 }
 
 function ftReset(key) {
-  const s = ft[key];
-  cancelAnimationFrame(s.raf);
-  s.running = false; s.ms = 0; s.cycles = 0;
+  cancelAnimationFrame(ft[key].raf);
+  ft[key].running = false; ft[key].ms = 0; ft[key].cycles = 0; ft[key].raf = null;
   document.getElementById('ftd_' + key).textContent = '0:00.0';
-  const cycleEl = document.getElementById('ftc_' + key);
-  if (cycleEl) cycleEl.textContent = '0 cycles';
+  const c = document.getElementById('ftc_' + key);
+  if (c) c.textContent = '0 cycles';
   const btn = document.getElementById('ftb_' + key);
   btn.textContent = '▶ Play';
   btn.className = 'ft-btn ft-play';
@@ -415,7 +396,6 @@ function ftReset(key) {
 
 function ftSecs(key) { return (ft[key].ms / 1000).toFixed(1) + 's'; }
 
-// ── WIRE UP FUEL TIMER BUTTONS ────────────────────────────────────
 ['score_a','feed_a','score_t','feed_t'].forEach(key => {
   document.getElementById('ftb_' + key).addEventListener('click', () => ftPlay(key));
   document.getElementById('ftr_' + key).addEventListener('click', () => ftReset(key));
@@ -427,35 +407,31 @@ document.getElementById('themeBtn').addEventListener('click', () => {
   const cur = html.getAttribute('data-theme');
   const next = cur === 'dark' ? 'light' : cur === 'light' ? 'cute' : 'dark';
   html.setAttribute('data-theme', next);
-  document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️ Light' : next === 'light' ? '🌸 Cute' : '🌙 Dark';
+  document.getElementById('themeBtn').textContent =
+    next === 'dark' ? '☀️ Light' : next === 'light' ? '🌸 Cute' : '🌙 Dark';
 });
 
 // ── STEPPERS ──────────────────────────────────────────────────────
-function stepField(id, delta) {
+function stepField(id, d) {
   const el = document.getElementById(id);
-  el.value = Math.max(0, (parseInt(el.value) || 0) + delta);
+  el.value = Math.max(0, (parseInt(el.value) || 0) + d);
 }
 [
-  ['btn_match_dec','f_match',-1],['btn_match_inc','f_match',1],
-  ['btn_team_dec','f_team',-1],  ['btn_team_inc','f_team',1],
+  ['btn_match_dec','f_match',-1], ['btn_match_inc','f_match',1],
+  ['btn_team_dec','f_team',-1],   ['btn_team_inc','f_team',1],
   ['btn_miss_a_m5','f_fuel_missed_a',-5],['btn_miss_a_m2','f_fuel_missed_a',-2],['btn_miss_a_m1','f_fuel_missed_a',-1],
   ['btn_miss_a_p1','f_fuel_missed_a',1], ['btn_miss_a_p2','f_fuel_missed_a',2], ['btn_miss_a_p5','f_fuel_missed_a',5],
   ['btn_miss_t_m5','f_fuel_missed_t',-5],['btn_miss_t_m2','f_fuel_missed_t',-2],['btn_miss_t_m1','f_fuel_missed_t',-1],
   ['btn_miss_t_p1','f_fuel_missed_t',1], ['btn_miss_t_p2','f_fuel_missed_t',2], ['btn_miss_t_p5','f_fuel_missed_t',5],
-].forEach(([btnId, fieldId, delta]) => {
-  document.getElementById(btnId).addEventListener('click', () => stepField(fieldId, delta));
-});
+].forEach(([b,f,d]) => document.getElementById(b).addEventListener('click', () => stepField(f, d)));
 
 // ── TOGGLES ───────────────────────────────────────────────────────
-document.getElementById('f_showed').addEventListener('change', () => {
-  document.getElementById('mainForm').classList.toggle('collapsed', !document.getElementById('f_showed').checked);
-});
-document.getElementById('f_died').addEventListener('change', () => {
-  document.getElementById('diedFields').classList.toggle('collapsed', !document.getElementById('f_died').checked);
-});
-document.getElementById('f_climbed_end').addEventListener('change', () => {
-  document.getElementById('climbEndFields').classList.toggle('collapsed', !document.getElementById('f_climbed_end').checked);
-});
+document.getElementById('f_showed').addEventListener('change', () =>
+  document.getElementById('mainForm').classList.toggle('collapsed', !document.getElementById('f_showed').checked));
+document.getElementById('f_died').addEventListener('change', () =>
+  document.getElementById('diedFields').classList.toggle('collapsed', !document.getElementById('f_died').checked));
+document.getElementById('f_climbed_end').addEventListener('change', () =>
+  document.getElementById('climbEndFields').classList.toggle('collapsed', !document.getElementById('f_climbed_end').checked));
 
 // ── VALIDATION ────────────────────────────────────────────────────
 function checkRequired() {
@@ -465,245 +441,224 @@ function checkRequired() {
   const btn = document.getElementById('genBtn');
   btn.disabled = !ok;
   btn.style.opacity = ok ? '1' : '0.4';
-  btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+  btn.style.cursor  = ok ? 'pointer' : 'not-allowed';
 }
-document.getElementById('f_name').addEventListener('input', checkRequired);
-document.getElementById('f_match').addEventListener('input', checkRequired);
-document.getElementById('f_team').addEventListener('input', checkRequired);
+['f_name','f_match','f_team'].forEach(id =>
+  document.getElementById(id).addEventListener('input', checkRequired));
 
-// ── MODAL ─────────────────────────────────────────────────────────
-const infoMap = {
-  ib_name:       ['Name', 'The name of the scouter. Not reset between matches.'],
-  ib_match:      ['Match Number', 'Current match number. Minimum: 0. Resets after submission.'],
-  ib_team:       ['Team Number', 'FRC team number of the robot. Minimum: 0. Resets after submission.'],
-  ib_pos:        ['Scouting Position', 'Alliance position being scouted. Resets after submission.'],
-  ib_showed:     ['Showed Up?', 'Did the team appear on the field? If No, the form collapses.'],
-  ib_startside:  ['Starting Side', 'Which side of the field the robot starts on.'],
-  ib_climbed_a:  ['Climbed Tower? (Auto)', 'Did the robot successfully climb the tower during autonomous?'],
-  ib_attempt_a:  ['Unsuccessfully Attempted Climb? (Auto)', 'Did the robot attempt to climb but fail during autonomous?'],
-  ib_miss_a:     ['Fuel Missed (Auto)', 'Number of fuel game pieces missed during autonomous.'],
-  ib_score_a:    ['Fuel Scoring Timer (Auto)', 'Press Play when the robot is scoring, Pause when it stops. Each Play press counts as one cycle.'],
-  ib_feed_a:     ['Fuel Feeding Timer (Auto)', 'Press Play when the robot is feeding fuel, Pause when it stops.'],
-  ib_bump:       ['Crossed Bump?', 'Did the robot cross the bump during autonomous?'],
-  ib_trench:     ['Crossed Trench?', 'Did the robot cross the trench during autonomous?'],
-  ib_miss_t:     ['Fuel Missed (Teleop)', 'Number of fuel game pieces missed during teleop.'],
-  ib_score_t:    ['Fuel Scoring Timer (Teleop)', 'Press Play when the robot is scoring, Pause when it stops. Each Play press counts as one cycle.'],
-  ib_feed_t:     ['Fuel Feeding Timer (Teleop)', 'Press Play when the robot is feeding fuel, Pause when it stops.'],
-  ib_defense:    ['Played Defense?', 'Did the robot play defense during teleop?'],
-  ib_climbed_end:['Climbed Tower? (Endgame)', 'Did the robot climb the tower at endgame? Reveals a climb level dropdown.'],
-  ib_climb_level:['Climb Level', 'The level the robot reached on the tower at endgame.'],
-  ib_attempt_end:['Unsuccessfully Attempted Climb? (Endgame)', 'Did the robot attempt to climb at endgame but fail?'],
-  ib_kept:       ['Kept Scoring / Playing Until End?', 'Did the robot continue actively playing until the match ended?'],
-  ib_died:       ['Died?', 'Did the robot lose battery or stop functioning during the match?'],
-  ib_functioning:['Functioned Again Later in Match?', 'Did the robot recover and start functioning again during the match?'],
-  ib_tipped:     ['Tipped Over?', 'Did the robot tip over during the match?'],
-  ib_comments:   ['Comments', 'Any additional observations about the robot or match.'],
+// ── INFO MODAL ────────────────────────────────────────────────────
+const INFO = {
+  ib_name:        ['Name','The name of the scouter. Not reset between matches.'],
+  ib_match:       ['Match Number','Current match number. Minimum: 0. Resets after submission.'],
+  ib_team:        ['Team Number','FRC team number of the robot. Minimum: 0. Resets after submission.'],
+  ib_pos:         ['Scouting Position','Alliance position being scouted. Resets after submission.'],
+  ib_showed:      ['Showed Up?','Did the team appear on the field? If No, the form collapses.'],
+  ib_startside:   ['Starting Side','Which side of the field the robot starts on.'],
+  ib_climbed_a:   ['Climbed Tower? (Auto)','Did the robot successfully climb the tower during autonomous?'],
+  ib_attempt_a:   ['Unsuccessfully Attempted Climb? (Auto)','Did the robot attempt to climb but fail during autonomous?'],
+  ib_miss_a:      ['Fuel Missed (Auto)','Number of fuel game pieces missed during autonomous.'],
+  ib_score_a:     ['Fuel Scoring Timer (Auto)','Press Play when the robot is scoring, Pause when it stops. Each Play press = one cycle.'],
+  ib_feed_a:      ['Fuel Feeding Timer (Auto)','Press Play when the robot is feeding, Pause when it stops.'],
+  ib_bump:        ['Crossed Bump?','Did the robot cross the bump during autonomous?'],
+  ib_trench:      ['Crossed Trench?','Did the robot cross the trench during autonomous?'],
+  ib_miss_t:      ['Fuel Missed (Teleop)','Number of fuel game pieces missed during teleop.'],
+  ib_score_t:     ['Fuel Scoring Timer (Teleop)','Press Play when the robot is scoring, Pause when it stops. Each Play press = one cycle.'],
+  ib_feed_t:      ['Fuel Feeding Timer (Teleop)','Press Play when the robot is feeding, Pause when it stops.'],
+  ib_defense:     ['Played Defense?','Did the robot play defense during teleop?'],
+  ib_climbed_end: ['Climbed Tower? (Endgame)','Did the robot climb the tower at endgame?'],
+  ib_climb_level: ['Climb Level','The level the robot reached on the tower at endgame.'],
+  ib_attempt_end: ['Unsuccessfully Attempted Climb? (Endgame)','Did the robot attempt to climb at endgame but fail?'],
+  ib_kept:        ['Kept Scoring / Playing Until End?','Did the robot continue actively playing until the match ended?'],
+  ib_died:        ['Died?','Did the robot lose battery or stop functioning during the match?'],
+  ib_functioning: ['Functioned Again Later in Match?','Did the robot recover and start functioning again during the match?'],
+  ib_tipped:      ['Tipped Over?','Did the robot tip over during the match?'],
+  ib_comments:    ['Comments','Any additional observations about the robot or match.'],
 };
-Object.entries(infoMap).forEach(([btnId, [title, body]]) => {
-  const el = document.getElementById(btnId);
+Object.entries(INFO).forEach(([id,[title,body]]) => {
+  const el = document.getElementById(id);
   if (el) el.addEventListener('click', () => {
     document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalBody').textContent = body;
+    document.getElementById('modalBody').textContent  = body;
     document.getElementById('modal').classList.add('open');
   });
 });
-document.getElementById('modalClose').addEventListener('click', () => document.getElementById('modal').classList.remove('open'));
-document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) document.getElementById('modal').classList.remove('open'); });
+document.getElementById('modalClose').addEventListener('click', () =>
+  document.getElementById('modal').classList.remove('open'));
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+});
 
-// ── QR GENERATION ─────────────────────────────────────────────────
-let lastQRText = '';
+// ── BUILD DATA ────────────────────────────────────────────────────
+function bv(id) { return document.getElementById(id).checked ? '1' : '0'; }
 
-function b(id) { return document.getElementById(id).checked ? '1' : '0'; }
-
-let lastFormSnapshot = null;
-
-function snapshotForm() {
-  lastFormSnapshot = {
-    name: document.getElementById('f_name').value,
-    match: document.getElementById('f_match').value,
-    pos: document.getElementById('f_pos').value,
-    team: document.getElementById('f_team').value,
-    showed: document.getElementById('f_showed').checked,
-    startside: document.getElementById('f_startside').value,
-    climbed: document.getElementById('f_climbed').checked,
-    attempted_climb: document.getElementById('f_attempted_climb').checked,
-    fuel_missed_a: document.getElementById('f_fuel_missed_a').value,
-    fuel_missed_t: document.getElementById('f_fuel_missed_t').value,
-    bump: document.getElementById('f_bump').checked,
-    trench: document.getElementById('f_trench').checked,
-    defense: document.getElementById('f_defense').checked,
-    climbed_end: document.getElementById('f_climbed_end').checked,
-    climb_level: document.getElementById('f_climb_level').value,
-    attempted_climb_end: document.getElementById('f_attempted_climb_end').checked,
-    kept_scoring: document.getElementById('f_kept_scoring').checked,
-    died: document.getElementById('f_died').checked,
-    functioning: document.getElementById('f_functioning').checked,
-    tipped: document.getElementById('f_tipped').checked,
-    comments: document.getElementById('f_comments').value,
-    ft: {
-      score_a: { ms: ft.score_a.ms, cycles: ft.score_a.cycles },
-      feed_a:  { ms: ft.feed_a.ms,  cycles: ft.feed_a.cycles  },
-      score_t: { ms: ft.score_t.ms, cycles: ft.score_t.cycles },
-      feed_t:  { ms: ft.feed_t.ms,  cycles: ft.feed_t.cycles  },
-    }
-  };
-}
-
-function restoreSnapshot(snap) {
-  document.getElementById('f_name').value = snap.name;
-  document.getElementById('f_match').value = snap.match;
-  document.getElementById('f_pos').value = snap.pos;
-  document.getElementById('f_team').value = snap.team;
-  document.getElementById('f_showed').checked = snap.showed;
-  document.getElementById('mainForm').classList.toggle('collapsed', !snap.showed);
-  document.getElementById('f_startside').value = snap.startside;
-  document.getElementById('f_climbed').checked = snap.climbed;
-  document.getElementById('f_attempted_climb').checked = snap.attempted_climb;
-  document.getElementById('f_fuel_missed_a').value = snap.fuel_missed_a;
-  document.getElementById('f_fuel_missed_t').value = snap.fuel_missed_t;
-  document.getElementById('f_bump').checked = snap.bump;
-  document.getElementById('f_trench').checked = snap.trench;
-  document.getElementById('f_defense').checked = snap.defense;
-  document.getElementById('f_climbed_end').checked = snap.climbed_end;
-  document.getElementById('climbEndFields').classList.toggle('collapsed', !snap.climbed_end);
-  document.getElementById('f_climb_level').value = snap.climb_level;
-  document.getElementById('f_attempted_climb_end').checked = snap.attempted_climb_end;
-  document.getElementById('f_kept_scoring').checked = snap.kept_scoring;
-  document.getElementById('f_died').checked = snap.died;
-  document.getElementById('diedFields').classList.toggle('collapsed', !snap.died);
-  document.getElementById('f_functioning').checked = snap.functioning;
-  document.getElementById('f_tipped').checked = snap.tipped;
-  document.getElementById('f_comments').value = snap.comments;
-  // Restore fuel timers
-  ['score_a','feed_a','score_t','feed_t'].forEach(key => {
-    ftReset(key);
-    ft[key].ms = snap.ft[key].ms;
-    ft[key].cycles = snap.ft[key].cycles;
-    document.getElementById('ftd_' + key).textContent = ftFmtMs(ft[key].ms);
-    const cycleEl = document.getElementById('ftc_' + key);
-    if (cycleEl) cycleEl.textContent = ft[key].cycles + ' cycle' + (ft[key].cycles !== 1 ? 's' : '');
-  });
-  checkRequired();
-}
+function buildFields() {
   const climbVal = document.getElementById('f_climbed_end').checked
     ? document.getElementById('f_climb_level').value : "Didn't Climb";
-
-  const fields = [
+  return [
     document.getElementById('f_name').value,
     document.getElementById('f_match').value,
     document.getElementById('f_pos').value,
     document.getElementById('f_team').value,
-    b('f_showed'),
+    bv('f_showed'),
     document.getElementById('f_startside').value,
-    b('f_climbed'),
-    b('f_attempted_climb'),
+    bv('f_climbed'),
+    bv('f_attempted_climb'),
     document.getElementById('f_fuel_missed_a').value,
     ftSecs('score_a'),
     String(ft.score_a.cycles),
     ftSecs('feed_a'),
-    b('f_bump'),
-    b('f_trench'),
+    bv('f_bump'),
+    bv('f_trench'),
     document.getElementById('f_fuel_missed_t').value,
     ftSecs('score_t'),
     String(ft.score_t.cycles),
     ftSecs('feed_t'),
-    b('f_defense'),
-    b('f_climbed_end'),
+    bv('f_defense'),
+    bv('f_climbed_end'),
     climbVal,
-    b('f_attempted_climb_end'),
-    b('f_kept_scoring'),
-    b('f_died'),
-    document.getElementById('f_died').checked ? b('f_functioning') : 'N/A',
-    b('f_tipped'),
+    bv('f_attempted_climb_end'),
+    bv('f_kept_scoring'),
+    bv('f_died'),
+    document.getElementById('f_died').checked ? bv('f_functioning') : 'N/A',
+    bv('f_tipped'),
     document.getElementById('f_comments').value,
   ];
+}
 
+const LABELS = [
+  'Name','Match Number','Scouting Position','Team Number','Showed Up','Starting Side',
+  'Climbed Tower (Auto)','Attempted Climb (Auto)',
+  'Fuel Missed (Auto)','Fuel Scoring Time (Auto)','Fuel Scoring Cycles (Auto)','Fuel Feeding Time (Auto)',
+  'Crossed Bump','Crossed Trench',
+  'Fuel Missed (Teleop)','Fuel Scoring Time (Teleop)','Fuel Scoring Cycles (Teleop)','Fuel Feeding Time (Teleop)',
+  'Played Defense','Climbed Tower (Endgame)','Climb Level','Attempted Climb (Endgame)',
+  'Kept Scoring Until End','Died','Functioned Again','Tipped Over','Comments',
+];
+
+// ── QR GENERATION ─────────────────────────────────────────────────
+let lastQRText = '';
+
+document.getElementById('genBtn').addEventListener('click', () => {
+  const fields = buildFields();
+
+  // Tab-separated for clipboard; comma-separated (CSV) for QR
   lastQRText = fields.join('\t');
+  const csvFields = fields.map(f => {
+    const s = String(f);
+    return (s.includes(',') || s.includes('"') || s.includes('\n'))
+      ? '"' + s.replace(/"/g, '""') + '"' : s;
+  });
+  const qrText = csvFields.join(',');
 
-  // Also build a comma-separated version for the QR code (tabs are unreliable in QR scanners)
-  // Escape any commas in free-text fields
-  const qrFields = fields.map(f => String(f).includes(',') ? '"' + String(f).replace(/"/g, '""') + '"' : String(f));
-  const qrText = qrFields.join(',');
-  const out = document.getElementById('qrOutput');
-  out.style.display = 'block';
-
-  // Clear previous QR
+  // Render QR directly into container (no canvas copy)
   const container = document.getElementById('qrContainer');
   container.innerHTML = '';
-
   new QRCode(container, {
     text: qrText,
-    width: 300,
-    height: 300,
-    correctLevel: QRCode.CorrectLevel.L
+    width: 280,
+    height: 280,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.L,
   });
 
   document.getElementById('qrRawText').textContent = qrText;
+  document.getElementById('qrOutput').style.display = 'block';
   buildSummary();
-  setTimeout(() => out.scrollIntoView({ behavior:'smooth', block:'center' }), 150);
+  setTimeout(() => document.getElementById('qrOutput').scrollIntoView({ behavior:'smooth', block:'center' }), 200);
 });
 
 // ── SUMMARY ───────────────────────────────────────────────────────
 function buildSummary() {
-  const climbVal = document.getElementById('f_climbed_end').checked
-    ? document.getElementById('f_climb_level').value : "Didn't Climb";
-  const rows = [
-    ['Name', document.getElementById('f_name').value],
-    ['Match Number', document.getElementById('f_match').value],
-    ['Scouting Position', document.getElementById('f_pos').value],
-    ['Team Number', document.getElementById('f_team').value],
-    ['Showed Up?', document.getElementById('f_showed').checked ? 'TRUE' : 'FALSE'],
-    ['Starting Side', document.getElementById('f_startside').value],
-    ['Climbed Tower? (Auto)', document.getElementById('f_climbed').checked ? 'TRUE' : 'FALSE'],
-    ['Unsuccessfully Attempted Climb? (Auto)', document.getElementById('f_attempted_climb').checked ? 'TRUE' : 'FALSE'],
-    ['Fuel Missed (Auto)', document.getElementById('f_fuel_missed_a').value],
-    ['Fuel Scoring Time (Auto)', ftSecs('score_a')],
-    ['Fuel Scoring Cycles (Auto)', String(ft.score_a.cycles)],
-    ['Fuel Feeding Time (Auto)', ftSecs('feed_a')],
-    ['Crossed Bump?', document.getElementById('f_bump').checked ? 'TRUE' : 'FALSE'],
-    ['Crossed Trench?', document.getElementById('f_trench').checked ? 'TRUE' : 'FALSE'],
-    ['Fuel Missed (Teleop)', document.getElementById('f_fuel_missed_t').value],
-    ['Fuel Scoring Time (Teleop)', ftSecs('score_t')],
-    ['Fuel Scoring Cycles (Teleop)', String(ft.score_t.cycles)],
-    ['Fuel Feeding Time (Teleop)', ftSecs('feed_t')],
-    ['Played Defense?', document.getElementById('f_defense').checked ? 'TRUE' : 'FALSE'],
-    ['Climbed Tower? (Endgame)', document.getElementById('f_climbed_end').checked ? 'TRUE' : 'FALSE'],
-    ['Climb Level', climbVal],
-    ['Unsuccessfully Attempted Climb? (Endgame)', document.getElementById('f_attempted_climb_end').checked ? 'TRUE' : 'FALSE'],
-    ['Kept Scoring Until End?', document.getElementById('f_kept_scoring').checked ? 'TRUE' : 'FALSE'],
-    ['Died?', document.getElementById('f_died').checked ? 'TRUE' : 'FALSE'],
-    ['Functioned Again Later in Match?', document.getElementById('f_died').checked ? (document.getElementById('f_functioning').checked ? 'TRUE' : 'FALSE') : 'N/A'],
-    ['Tipped Over?', document.getElementById('f_tipped').checked ? 'TRUE' : 'FALSE'],
-    ['Comments', document.getElementById('f_comments').value || '—'],
-  ];
-  document.getElementById('summaryTable').innerHTML = rows.map((r,i) => `
+  const fields = buildFields();
+  document.getElementById('summaryTable').innerHTML = LABELS.map((label, i) => `
     <tr style="background:${i%2===0?'var(--bg3)':'var(--input-bg)'};">
-      <td style="padding:0.4rem 0.6rem;font-weight:700;color:var(--text2);border:1px solid var(--border);width:55%;">${r[0]}</td>
-      <td style="padding:0.4rem 0.6rem;color:var(--text);border:1px solid var(--border);">${r[1]}</td>
+      <td style="padding:0.4rem 0.6rem;font-weight:700;color:var(--text2);border:1px solid var(--border);width:55%;">${label}</td>
+      <td style="padding:0.4rem 0.6rem;color:var(--text);border:1px solid var(--border);">${fields[i] ?? ''}</td>
     </tr>`).join('');
 }
 
 // ── COPY ──────────────────────────────────────────────────────────
 document.getElementById('copyBtn').addEventListener('click', () => {
   if (!lastQRText) return;
-  navigator.clipboard.writeText(lastQRText).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✅ Copied!';
-    setTimeout(() => btn.textContent = '📋 Copy Data to Clipboard', 2000);
-  }).catch(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '❌ Copy failed';
-    setTimeout(() => btn.textContent = '📋 Copy Data to Clipboard', 2000);
-  });
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(lastQRText)
+    .then(() => { btn.textContent = '✅ Copied!'; setTimeout(() => btn.textContent = '📋 Copy Data to Clipboard', 2000); })
+    .catch(() => { btn.textContent = '❌ Copy failed'; setTimeout(() => btn.textContent = '📋 Copy Data to Clipboard', 2000); });
 });
+
+// ── SNAPSHOT / UNDO ───────────────────────────────────────────────
+let snapshot = null;
+
+function takeSnapshot() {
+  snapshot = {
+    name:    document.getElementById('f_name').value,
+    match:   document.getElementById('f_match').value,
+    pos:     document.getElementById('f_pos').value,
+    team:    document.getElementById('f_team').value,
+    showed:  document.getElementById('f_showed').checked,
+    side:    document.getElementById('f_startside').value,
+    climbed: document.getElementById('f_climbed').checked,
+    att_a:   document.getElementById('f_attempted_climb').checked,
+    miss_a:  document.getElementById('f_fuel_missed_a').value,
+    miss_t:  document.getElementById('f_fuel_missed_t').value,
+    bump:    document.getElementById('f_bump').checked,
+    trench:  document.getElementById('f_trench').checked,
+    defense: document.getElementById('f_defense').checked,
+    c_end:   document.getElementById('f_climbed_end').checked,
+    c_lvl:   document.getElementById('f_climb_level').value,
+    att_end: document.getElementById('f_attempted_climb_end').checked,
+    kept:    document.getElementById('f_kept_scoring').checked,
+    died:    document.getElementById('f_died').checked,
+    func:    document.getElementById('f_functioning').checked,
+    tipped:  document.getElementById('f_tipped').checked,
+    comments:document.getElementById('f_comments').value,
+    ft: Object.fromEntries(['score_a','feed_a','score_t','feed_t'].map(k => [k, { ms: ft[k].ms, cycles: ft[k].cycles }])),
+  };
+}
+
+function applySnapshot(s) {
+  document.getElementById('f_name').value            = s.name;
+  document.getElementById('f_match').value           = s.match;
+  document.getElementById('f_pos').value             = s.pos;
+  document.getElementById('f_team').value            = s.team;
+  document.getElementById('f_showed').checked        = s.showed;
+  document.getElementById('mainForm').classList.toggle('collapsed', !s.showed);
+  document.getElementById('f_startside').value       = s.side;
+  document.getElementById('f_climbed').checked       = s.climbed;
+  document.getElementById('f_attempted_climb').checked = s.att_a;
+  document.getElementById('f_fuel_missed_a').value   = s.miss_a;
+  document.getElementById('f_fuel_missed_t').value   = s.miss_t;
+  document.getElementById('f_bump').checked          = s.bump;
+  document.getElementById('f_trench').checked        = s.trench;
+  document.getElementById('f_defense').checked       = s.defense;
+  document.getElementById('f_climbed_end').checked   = s.c_end;
+  document.getElementById('climbEndFields').classList.toggle('collapsed', !s.c_end);
+  document.getElementById('f_climb_level').value     = s.c_lvl;
+  document.getElementById('f_attempted_climb_end').checked = s.att_end;
+  document.getElementById('f_kept_scoring').checked  = s.kept;
+  document.getElementById('f_died').checked          = s.died;
+  document.getElementById('diedFields').classList.toggle('collapsed', !s.died);
+  document.getElementById('f_functioning').checked   = s.func;
+  document.getElementById('f_tipped').checked        = s.tipped;
+  document.getElementById('f_comments').value        = s.comments;
+  ['score_a','feed_a','score_t','feed_t'].forEach(k => {
+    ftReset(k);
+    ft[k].ms = s.ft[k].ms; ft[k].cycles = s.ft[k].cycles;
+    document.getElementById('ftd_' + k).textContent = ftFmtMs(ft[k].ms);
+    const c = document.getElementById('ftc_' + k);
+    if (c) c.textContent = ft[k].cycles + ' cycle' + (ft[k].cycles !== 1 ? 's' : '');
+  });
+  checkRequired();
+}
 
 // ── RESET ─────────────────────────────────────────────────────────
 document.getElementById('resetBtn').addEventListener('click', () => {
-  snapshotForm();
+  takeSnapshot();
   document.getElementById('undoBtn').style.display = 'block';
   document.getElementById('f_match').value = '0';
-  document.getElementById('f_pos').value = 'Red 1';
-  document.getElementById('f_team').value = '0';
+  document.getElementById('f_pos').value   = 'Red 1';
+  document.getElementById('f_team').value  = '0';
   document.getElementById('f_showed').checked = true;
   document.getElementById('mainForm').classList.remove('collapsed');
   document.getElementById('f_startside').value = 'Center';
@@ -722,10 +677,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 });
 
 document.getElementById('undoBtn').addEventListener('click', () => {
-  if (lastFormSnapshot) {
-    restoreSnapshot(lastFormSnapshot);
-    lastFormSnapshot = null;
-  }
+  if (snapshot) { applySnapshot(snapshot); snapshot = null; }
   document.getElementById('undoBtn').style.display = 'none';
 });
 </script>
