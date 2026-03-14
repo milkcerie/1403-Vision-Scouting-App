@@ -97,8 +97,8 @@ select option { background:var(--bg2); }
 .gen-btn { padding:1rem; background:var(--green); color:#fff; border:none; border-radius:10px; font-size:1.1rem; font-weight:800; cursor:pointer; touch-action:manipulation; }
 .rst-btn { padding:0.8rem; background:transparent; color:var(--text2); border:2px solid var(--border); border-radius:10px; font-size:0.95rem; font-weight:700; cursor:pointer; touch-action:manipulation; }
 #qrOutput { display:none; text-align:center; margin-top:1.1rem; background:var(--bg2); border:1.5px solid var(--border); border-radius:12px; padding:1.5rem; }
-#qrOutput p { font-size:0.82rem; color:var(--text2); margin-top:0.75rem; }
-#qrCanvas { border:4px solid var(--green); border-radius:10px; }
+#qrOutput p { font-size:0.82rem; color:var(--text2); margin-top:0.75rem; margin-bottom:0.75rem; }
+#qrContainer img, #qrContainer canvas { border:4px solid var(--green); border-radius:10px; max-width:100%; }
 .dep-fields { background:var(--bg3); border-radius:8px; padding:0.85rem; margin-top:0.75rem; border:1.5px dashed var(--border); }
 </style>
 </head>
@@ -330,9 +330,8 @@ select option { background:var(--bg2); }
 </div>
 
 <div id="qrOutput">
-  <canvas id="qrCanvas"></canvas>
-  <p>Scan with your Bluetooth scanner — tab-separated data fills across columns in Google Sheets</p>
   <button class="rst-btn" id="copyBtn" style="margin-top:0.75rem;font-size:0.85rem;padding:0.55rem;">📋 Copy Data to Clipboard</button>
+  <div id="qrContainer" style="display:flex;justify-content:center;margin-bottom:0.5rem;"></div>
   <details style="margin-top:0.75rem;text-align:left;">
     <summary style="cursor:pointer;font-size:0.85rem;font-weight:700;color:var(--text3);padding:0.5rem;border:1.5px solid var(--border);border-radius:8px;list-style:none;text-align:center;">🔍 Verify Submitted Data</summary>
     <table id="summaryTable" style="width:100%;margin-top:0.6rem;border-collapse:collapse;font-size:0.82rem;"></table>
@@ -549,24 +548,21 @@ document.getElementById('genBtn').addEventListener('click', () => {
 
   lastQRText = fields.join('\t');
   const out = document.getElementById('qrOutput');
-  const canvas = document.getElementById('qrCanvas');
   out.style.display = 'block';
-  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 
-  const tmp = document.createElement('div');
-  tmp.style.display = 'none';
-  document.body.appendChild(tmp);
-  new QRCode(tmp, { text: lastQRText, width: 300, height: 300, correctLevel: QRCode.CorrectLevel.M });
-  setTimeout(() => {
-    const img = tmp.querySelector('img') || tmp.querySelector('canvas');
-    canvas.width = 300; canvas.height = 300;
-    const ctx = canvas.getContext('2d');
-    if (img.tagName === 'IMG') { const i = new Image(); i.onload = () => ctx.drawImage(i,0,0); i.src = img.src; }
-    else ctx.drawImage(img, 0, 0);
-    document.body.removeChild(tmp);
-    buildSummary();
-    out.scrollIntoView({ behavior:'smooth', block:'center' });
-  }, 100);
+  // Clear previous QR
+  const container = document.getElementById('qrContainer');
+  container.innerHTML = '';
+
+  new QRCode(container, {
+    text: lastQRText,
+    width: 300,
+    height: 300,
+    correctLevel: QRCode.CorrectLevel.L
+  });
+
+  buildSummary();
+  setTimeout(() => out.scrollIntoView({ behavior:'smooth', block:'center' }), 150);
 });
 
 // ── SUMMARY ───────────────────────────────────────────────────────
