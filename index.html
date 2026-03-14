@@ -469,14 +469,14 @@ const CLVL = {"Didn't Climb":'0','Level 1':'1','Level 2':'2','Level 3':'3'};
 
 function buildFields(){
   const climbVal = document.getElementById('f_climbed_end').checked
-    ? (CLVL[document.getElementById('f_climb_level').value]||'0') : '0';
+    ? document.getElementById('f_climb_level').value : "Didn't Climb";
   return [
-    document.getElementById('f_name').value.replace(/ /g,'_'),
+    document.getElementById('f_name').value,
     document.getElementById('f_match').value,
-    POS[document.getElementById('f_pos').value]||document.getElementById('f_pos').value,
+    document.getElementById('f_pos').value,
     document.getElementById('f_team').value,
     bv('f_showed'),
-    SIDE[document.getElementById('f_startside').value]||document.getElementById('f_startside').value,
+    document.getElementById('f_startside').value,
     bv('f_climbed'),
     bv('f_attempted_climb'),
     document.getElementById('f_fuel_missed_a').value,
@@ -495,9 +495,9 @@ function buildFields(){
     bv('f_attempted_climb_end'),
     bv('f_kept_scoring'),
     bv('f_died'),
-    document.getElementById('f_died').checked?bv('f_functioning'):'N',
+    document.getElementById('f_died').checked ? bv('f_functioning') : 'N',
     bv('f_tipped'),
-    document.getElementById('f_comments').value.replace(/ /g,'_'),
+    document.getElementById('f_comments').value,
   ];
 }
 
