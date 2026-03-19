@@ -1,5 +1,5 @@
 # 1403-Scouting-App
-2026 scouting app for 1403. 
+2026 scouting app for FRC Team 1403. 
 
 Currently deployed at: https://1403-vision-scouting-app.vercel.app/
 
