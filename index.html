@@ -259,18 +259,16 @@ select option { background:var(--bg2); }
           <div class="field-label-row"><label>Climbed Tower?</label><button class="info-btn" id="ib_climbed_end">i</button></div>
           <label class="toggle"><input type="checkbox" id="f_climbed_end"><span class="slider"></span></label>
         </div>
-        <div class="dep-fields collapsible collapsed" id="climbEndFields">
-          <div class="field" style="margin-bottom:0;">
-            <div class="field-label-row"><label>Climb Level</label><button class="info-btn" id="ib_climb_level">i</button></div>
-            <select id="f_climb_level"><option>Didn't Climb</option><option>Level 1</option><option>Level 2</option><option>Level 3</option></select>
-          </div>
-        </div>
       </div>
       <div class="field">
         <div class="bool-row">
-          <div class="field-label-row"><label>Unsuccessfully Attempted Climb?</label><button class="info-btn" id="ib_attempt_end">i</button></div>
+          <div class="field-label-row"><label>Attempted Climb? (Unsuccessful)</label><button class="info-btn" id="ib_attempt_end">i</button></div>
           <label class="toggle"><input type="checkbox" id="f_attempted_climb_end"><span class="slider"></span></label>
         </div>
+      </div>
+      <div class="field">
+        <div class="field-label-row"><label>Climb Result</label><button class="info-btn" id="ib_climb_level">i</button></div>
+        <select id="f_climb_level"><option>Didn't Climb</option><option>L1</option><option>L2</option><option>L3</option></select>
       </div>
       <div class="field">
         <div class="bool-row">
@@ -408,8 +406,7 @@ document.getElementById('f_showed').addEventListener('change',()=>
   document.getElementById('mainForm').classList.toggle('collapsed',!document.getElementById('f_showed').checked));
 document.getElementById('f_died').addEventListener('change',()=>
   document.getElementById('diedFields').classList.toggle('collapsed',!document.getElementById('f_died').checked));
-document.getElementById('f_climbed_end').addEventListener('change',()=>
-  document.getElementById('climbEndFields').classList.toggle('collapsed',!document.getElementById('f_climbed_end').checked));
+
 
 // ── VALIDATION ────────────────────────────────────────────────────
 function checkRequired(){
@@ -481,13 +478,13 @@ function buildFields(){
     bv('f_attempted_climb'),
     document.getElementById('f_fuel_missed_a').value,
     ftSecs('score_a'),
-    String(ft.score_a.cycles),
+    // String(ft.score_a.cycles), // COMMENTED OUT — re-enable when fully transitioned
     ftSecs('feed_a'),
     bv('f_bump'),
     bv('f_trench'),
     document.getElementById('f_fuel_missed_t').value,
     ftSecs('score_t'),
-    String(ft.score_t.cycles),
+    // String(ft.score_t.cycles), // COMMENTED OUT — re-enable when fully transitioned
     ftSecs('feed_t'),
     bv('f_defense'),
     bv('f_climbed_end'),
@@ -664,7 +661,6 @@ document.getElementById('resetBtn').addEventListener('click',()=>{
    'f_climbed_end','f_attempted_climb_end','f_kept_scoring','f_died','f_tipped','f_functioning']
     .forEach(id=>{ document.getElementById(id).checked=false; });
   document.getElementById('diedFields').classList.add('collapsed');
-  document.getElementById('climbEndFields').classList.add('collapsed');
   document.getElementById('f_climb_level').value="Didn't Climb";
   document.getElementById('f_fuel_missed_a').value='0';
   document.getElementById('f_fuel_missed_t').value='0';
